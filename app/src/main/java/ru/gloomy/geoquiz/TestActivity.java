@@ -32,12 +32,12 @@ public class TestActivity extends Activity {
         AnswerListView =  findViewById(R.id.AnswerListView);
         AnswerListView.setAdapter(adapter);
 
-        public Void addQuestion(ListView){
+        /*public Void addQuestion(ListView){
            String = answers.toString();
             QuizQuestion answers = new QuizQuestion(answers);
             answers.add(answers);
             adapter.notifyDataSetChanged();
-        }
+        }*/
 
 
         // создаем библиотеку

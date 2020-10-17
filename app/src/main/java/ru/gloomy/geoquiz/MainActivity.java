@@ -6,12 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-
-
 public class MainActivity extends Activity {
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +36,7 @@ public class MainActivity extends Activity {
                         but_menu_resul.setBackgroundResource(R.drawable.but_menu_press);
                         Intent result = new Intent(MainActivity.this, ResultActivity.class);
                         startActivity(result);
-                        break;
+                        //break;
 
 
                     //место для пасхалки

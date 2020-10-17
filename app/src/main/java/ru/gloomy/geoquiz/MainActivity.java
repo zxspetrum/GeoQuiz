@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 switch (
                         v.getId()) {
-                        case R.id.but_menu_test:
+                    case R.id.but_menu_test:
                         but_menu_test.setBackgroundResource(R.drawable.but_menu_press);
                         Intent test = new Intent(MainActivity.this, TestActivity.class);
                         startActivity(test);

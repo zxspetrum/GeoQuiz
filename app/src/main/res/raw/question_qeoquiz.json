@@ -1,12 +1,12 @@
 {
   "quiz questions": [
     {
-      "question": "Канберра-столица Австралии?:",
+      "question": "Столица Австралии?:",
       "answers": [
         "Канберра",
         "Сиэтл",
         "Сидней",
-        "Windows CE"
+        "Пекин"
       ],
       "true_answer": 0,
       "variant": "1"

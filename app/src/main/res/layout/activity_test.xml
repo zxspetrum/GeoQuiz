@@ -3,137 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="15dp"
+    tools:context=".TestActivity">
 
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAnswer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:gravity="center"
-            android:text="@string/questionNumber"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:gravity="center"
-            android:textColor="#020202"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            tools:text="00:00" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textViewAnswer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:gravity="center"
-            android:textColor="#000000"
-            tools:text="Правильных ответов %/%" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center"
-            android:textColor="#090909"
-            tools:text="вопрос % из %" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="169dp"
-        android:gravity="center"
-        android:padding="20dp"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textColorLink="@android:color/darker_gray"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        tools:text="Question" />
-
-    <LinearLayout
-        android:layout_width="394dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <ListView
-            android:id="@+id/AnswerListView"
-            android:layout_width="match_parent"
-            android:layout_height="252dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="392dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <Button
-            android:id="@+id/buttonNext"
-            style="@android:style/Widget.Material.Light.Button.Inset"
-            android:layout_width="165dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/but_menu"
-            android:fontFamily="@font/ubuntu_light"
-            android:shadowColor="#FFFFFF"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/buttonNext"
-            android:textAlignment="center"
-            android:textColor="#FF0000"
-            android:textSize="25sp"
-            tools:targetApi="lollipop" />
-
-        <Button
-            android:id="@+id/buttonPrev"
-            style="@android:style/Widget.Material.Light.Button.Inset"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/but_menu"
-            android:fontFamily="@font/ubuntu_light"
-            android:shadowColor="#FFFFFF"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="@string/buttonPrev"
-            android:textAlignment="center"
-            android:textColor="#FF0000"
-            android:textSize="25sp"
-            tools:targetApi="lollipop" />
-
-    </LinearLayout>
 </LinearLayout>

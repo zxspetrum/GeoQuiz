@@ -8,17 +8,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class QuizQuestion {
 
-    @SerializedName("question")
-    @Expose
+
     private String question;
-    @SerializedName("answers")
-    @Expose
     private List<String> answers = null;
-    @SerializedName("true_answer")
-    @Expose
     private Long trueAnswer;
-    @SerializedName("variant")
-    @Expose
     private String variant;
 
     public String getQuestion() {

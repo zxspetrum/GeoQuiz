@@ -1,37 +1,46 @@
 package ru.gloomy.geoquiz;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
-import ru.gloomy.geoquiz.RecyclerView.Adapter;
 
-public class TestActivity extends Activity {
+
+public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private String[] mDataset;
+    private Adapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        recyclerView = findViewById(R.id.rvAnswer);
-        recyclerView.setHasFixedSize(true); // в содержимом не меняем размер макета RecyclerView
-        layoutManager = new LinearLayoutManager(this);// используем линейный менеджер компоновки
-        recyclerView.setLayoutManager(layoutManager);
+        //данные для заполнения RecyclerView
 
-        // указываем адаптер
-        mAdapter = new Adapter(mDataset);
-        recyclerView.setAdapter(mAdapter);
 
+        final String[] mDataset = getResources().getStringArray(R.raw.question_qeoquiz);
+
+        // Настройка RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.rvAnswer);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ArrayAdapter<String> adapter = new Adapter<String>(this, );
+        recyclerView.setAdapter(adapter);
 
         // создаем библиотеку
         Gson gson = new Gson();
@@ -39,6 +48,9 @@ public class TestActivity extends Activity {
         String file = readTextFile(fileInputStream);
         QuestionList list = gson.fromJson(file, QuestionList.class);
         Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(0).getQuestion());
+
+
+
     }
 
         public String readTextFile (InputStream inputStream){ // ввод чтение gson
@@ -57,6 +69,9 @@ public class TestActivity extends Activity {
             return outputStream.toString();
 
         }
+
+
+
 
 
 }

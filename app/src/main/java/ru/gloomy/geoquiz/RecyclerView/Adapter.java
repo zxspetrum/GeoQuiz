@@ -1,57 +1,74 @@
 package ru.gloomy.geoquiz.RecyclerView;
-
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 import ru.gloomy.geoquiz.R;
 
+class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+    private List<String> mData;
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
 
-    private String[] mDataset;
+    // data is passed into the constructor
+    Adapter(Context context, List<String> data) {
+        this.mInflater = LayoutInflater.from(context);
+        this.mData = data;
+    }
 
-// Предоставляем ссылку на представления для каждого элемента данных
-// Для сложных элементов данных может потребоваться более одного представления для каждого элемента, и
-// вы предоставляете доступ ко всем представлениям для элемента данных в держателе представления
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-    // в этом случае каждый элемент данных - это просто строка
-        public TextView textView;
-        public MyViewHolder(TextView v) {
-            super(v);
-            textView = v;
+    // inflates the row layout from xml when needed
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        return new ViewHolder(view);
+    }
+
+    // binds the data to the TextView in each row
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        String quiz_questions = mData.get(position);
+        holder.myTextView.setText(quiz_questions);
+    }
+
+    // total number of rows
+    @Override
+    public int getItemCount() {
+        return mData.size();
+    }
+
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView myTextView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            myTextView = itemView.findViewById(R.id.tvAnswers);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
-    // Предоставляем подходящий конструктор (зависит от типа набора данных)
-    public Adapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
-    // Создаем новые представления (вызываемые менеджером по расположению)
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // создаем новое view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_test, parent, false);
-
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+    // convenience method for getting data at click position
+    String getItem(int id) {
+        return mData.get(id);
     }
 
-    // Заменить содержимое представления (вызываемого менеджером по расположению)
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
-// - получить элемент из вашего набора данных в этой позиции
-// - заменяем содержимое представления этим элементом
-        holder.textView.setText(mDataset[position]);
-
+    // allows clicks events to be caught
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
 
-    // Возвращаем размер вашего набора данных (вызывается менеджером по расположению)
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

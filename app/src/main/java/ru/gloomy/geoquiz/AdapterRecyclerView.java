@@ -1,47 +1,50 @@
-package ru.gloomy.geoquiz.RecyclerView;
+package ru.gloomy.geoquiz;
+
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
-import ru.gloomy.geoquiz.R;
 
-class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-    private List<String> mData;
+    private List<String> mAnswers;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    // data is passed into the constructor
-    Adapter(Context context, List<String> data) {
+    // передача данных в конструктор
+    AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mAnswers = data;
     }
 
-    // inflates the row layout from xml when needed
+    // данный код увеличивает контейнер RecyclerView в случае необходимости
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row, parent, false);
+        View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    // связывает данные с TextView в каждой строке
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String quiz_questions = mData.get(position);
-        holder.myTextView.setText(quiz_questions);
+        String answers = mAnswers.get(position);
+        holder.myTextView.setText(answers);
     }
 
-    // total number of rows
+    // общее количество строк
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mAnswers.size();
     }
 
 
-    // stores and recycles views as they are scrolled off screen
+    // сохраняет и перерабатывает просмотры по мере их прокрутки за пределы экрана
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
 
@@ -57,18 +60,19 @@ class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    // convenience method for getting data at click position
+    // метод получения данных при клике
     String getItem(int id) {
-        return mData.get(id);
+        return mAnswers.get(id);
     }
 
-    // allows clicks events to be caught
+    // обработчик кликов
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
+
 }

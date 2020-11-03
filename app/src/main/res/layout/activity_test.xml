@@ -1,17 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
+    android:background="@color/colorBackground"
+    android:padding="10dp"
     tools:context=".TestActivity">
 
+    <TextView
+        android:id="@+id/text_view_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:freezesText="true"
+        android:text="@string/count"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/text_view_question_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_score"
+        android:layout_marginStart="20dp"
+        android:freezesText="true"
+        android:text="@string/counter"
+        android:textColor="@android:color/black" />
+
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/text_view_score"
+        android:freezesText="false"
+        android:text="@string/timer"
+        android:textColor="@android:color/black"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_question_count"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="16dp"
+        android:freezesText="true"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:text="@string/question" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAnswer"
+        android:id="@+id/rvAnswers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_below="@id/tvQuestion"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:padding="5dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
-</LinearLayout>
+</RelativeLayout>

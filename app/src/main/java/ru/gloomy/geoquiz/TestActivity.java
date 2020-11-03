@@ -2,56 +2,47 @@ package ru.gloomy.geoquiz;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
-
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
+public class TestActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private String[] mDataset;
-    private Adapter adapter;
+
+    List<String> quizQuestions;
+    TextView tvQuestion;
+    RecyclerView rvAnswers;
+    int currentQuestion = 0;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        TextView tvQuestion = findViewById(R.id.tvQuestion);
+        RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
 
-        //данные для заполнения RecyclerView
-
-
-        final String[] mDataset = getResources().getStringArray(R.raw.question_qeoquiz);
-
-        // Настройка RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvAnswer);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ArrayAdapter<String> adapter = new Adapter<String>(this, );
-        recyclerView.setAdapter(adapter);
-
-        // создаем библиотеку
-        Gson gson = new Gson();
-        InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
-        String file = readTextFile(fileInputStream);
-        QuestionList list = gson.fromJson(file, QuestionList.class);
-        Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(0).getQuestion());
 
 
 
-    }
+        // создаем библиотеку
+            quizQuestions = new ArrayList<>();
+            Gson gson = new Gson();
+            InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
+            String file = readTextFile(fileInputStream);
+            QuestionList list = gson.fromJson(file, QuestionList.class);
+            Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(0).getQuestion());
+
+
+        }
 
         public String readTextFile (InputStream inputStream){ // ввод чтение gson
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -69,9 +60,5 @@ public class MainActivity extends AppCompatActivity {
             return outputStream.toString();
 
         }
+    }
 
-
-
-
-
-}

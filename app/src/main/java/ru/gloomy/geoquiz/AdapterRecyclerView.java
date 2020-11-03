@@ -13,14 +13,14 @@ import java.util.List;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-    private List<String> mAnswers;
+    private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
-        this.mAnswers = data;
+        this.mData = data;
     }
 
     // данный код увеличивает контейнер RecyclerView в случае необходимости
@@ -33,14 +33,14 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     // связывает данные с TextView в каждой строке
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String answers = mAnswers.get(position);
+        String answers = mData.get(position);
         holder.myTextView.setText(answers);
     }
 
     // общее количество строк
     @Override
     public int getItemCount() {
-        return mAnswers.size();
+        return mData.size();
     }
 
 
@@ -62,7 +62,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
     // метод получения данных при клике
     String getItem(int id) {
-        return mAnswers.get(id);
+        return mData.get(id);
     }
 
     // обработчик кликов

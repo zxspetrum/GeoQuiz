@@ -6,12 +6,7 @@
     <string name="but_menu_test">Пройти тест</string>
     <string name="but_menu_result">Результат</string>
     <string name="work">Страница с результатами теста в разработке. Приносим свои извинения</string>
-    <string name="next_button">Следующий вопрос</string>
-    <string name="correct_toast">Правильно!</string>
-    <string name="incorrect_toast">Неверно!</string>
-   <string name="questionNumber">Вопрос №</string>
-    <string name="buttonNext">Вперед</string>
-    <string name="buttonPrev">Назад</string>
+
     <string name="timer">00:00</string>
     <string name="count">Счетчик вопросов</string>
     <string name="counter">Текущий результат</string>

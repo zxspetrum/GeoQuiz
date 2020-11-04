@@ -35,11 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="45dp"
-        android:layout_marginEnd="20dp"
         android:layout_toEndOf="@+id/text_view_score"
         android:freezesText="false"
+        android:textAlignment="center"
         android:text="@string/timer"
         android:textColor="@android:color/black"
         android:textSize="40sp" />

@@ -8,7 +8,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Random;
+
 public class MainActivity extends Activity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class MainActivity extends Activity {
                         v.getId()) {
                     case R.id.but_menu_test:
                         but_menu_test.setBackgroundResource(R.drawable.but_menu_press);
+
                         Intent test = new Intent(MainActivity.this, TestActivity.class);
                         startActivity(test);
                         break;

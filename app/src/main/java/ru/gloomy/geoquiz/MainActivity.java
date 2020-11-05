@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -14,11 +15,13 @@ public class MainActivity extends Activity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+       int a;
         final Button but_menu_test, but_menu_resul;
         final ImageView iv_menu;
 
@@ -36,7 +39,10 @@ public class MainActivity extends Activity {
                     case R.id.but_menu_test:
                         but_menu_test.setBackgroundResource(R.drawable.but_menu_press);
 
+                        int a = (int) ( Math.random() * 10 );
                         Intent test = new Intent(MainActivity.this, TestActivity.class);
+                        test.putExtra("variant: ", a);
+
                         startActivity(test);
                         break;
 

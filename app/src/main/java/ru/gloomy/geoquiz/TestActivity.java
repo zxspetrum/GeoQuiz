@@ -1,13 +1,13 @@
 package ru.gloomy.geoquiz;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +31,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
     private List<String> quizQuestions;
     private AdapterRecyclerView adapter;
-    private int current = 0, correct = 0, wrong = 0, trueAnswers, seconds = 20;
+    private int current = 0, correct = 0, wrong = 0, trueAnswers = 0, seconds = 20;
     private TextView score, questionCount;
     private boolean running = true;
 
@@ -40,6 +40,12 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        int variant = getIntent().getIntExtra("variant: ", 0);
+        Toast.makeText(TestActivity.this, "Выбран вариант № "
+                + variant, Toast.LENGTH_SHORT).show();
+
+
 
         // создаем библиотеку
 
@@ -72,6 +78,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             rvAnswers.setAdapter(adapter);
             tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
 
+
         }
 
 
@@ -85,9 +92,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             wrong++;
             for (current = 0; current < quizQuestions.size(); current++) ;
             return;
-
-
-
         }
     }
 
@@ -126,7 +130,10 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
                 } if  ( seconds == 0){
                     finish();
+
                     Intent result = new Intent(TestActivity.this, ResultActivity.class);
+                    result.putExtra("correct: ", correct);
+                    result.putExtra("wrong: ", wrong);
                     startActivity(result);
                 }else {
 

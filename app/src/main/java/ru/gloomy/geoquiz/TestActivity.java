@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,16 +26,13 @@ import java.util.List;
 import java.util.Locale;
 
 
+
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
-
-    List<String> quizQuestions;
-    AdapterRecyclerView adapter;
-
-    int current = 0;
-    int correct = 0, wrong = 0;
-    int trueAnswers;
-    private int seconds = 8;
+    private List<String> quizQuestions;
+    private AdapterRecyclerView adapter;
+    private int current = 0, correct = 0, wrong = 0, trueAnswers, seconds = 20;
+    private TextView score, questionCount;
     private boolean running = true;
 
 
@@ -51,44 +51,44 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getQuestion());
         Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getAnswers());
         Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getTrueAnswer());
-
-
+        TextView score = findViewById(R.id.text_view_score);
+        TextView questionCount = findViewById(R.id.text_view_question_count);
         RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
         TextView tvQuestion = findViewById(R.id.tvQuestion);
         Collections.shuffle(quizQuestions);
         runTimer();
+
 
         // инициализируем костомный список
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
 
 
-        adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(current).getAnswers());
-        adapter.setClickListener(this);
-        rvAnswers.setAdapter(adapter);
-        tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
-        //trueAnswers
 
-    }
+
+            //заполняем адаптер
+            adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(current).getAnswers());
+            adapter.setClickListener(this);
+            rvAnswers.setAdapter(adapter);
+            tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
+
+        }
 
 
     public void onItemClick(View view, int position) {
 
-        if (position == view.getId()) {
-
+        if (position == trueAnswers) {
+            correct++;
+            for (current = 0; current < quizQuestions.size(); current++) ;
+            return;
         } else {
+            wrong++;
+            for (current = 0; current < quizQuestions.size(); current++) ;
+            return;
+
+
 
         }
-
-//        if (quizQuestions.get(current).getAnswers()
-//                        .equals(quizQuestions.get(current).getTrueAnswer())) {
-//                    current++;
-//                    correct++;
-//
-//                }else {
-//            wrong++;
-//        }
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -120,13 +120,16 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 String time = String.format(Locale.getDefault(),
                         "%02d:%02d", minutes, secs);
                 timeView.setText(time);
-                if (running) {
-                    seconds--;
-                }if
-                    ( seconds == 0){
+                seconds--;
+                if (seconds < 15) {
+                    timeView.setTextColor(Color.RED);
+
+                } if  ( seconds == 0){
                     finish();
                     Intent result = new Intent(TestActivity.this, ResultActivity.class);
                     startActivity(result);
+                }else {
+
                 }
                 handler.postDelayed(this, 1000);
             }

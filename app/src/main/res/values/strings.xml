@@ -13,4 +13,9 @@
     <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
 
 
+    <!-- TODO: Remove or change this placeholder text -->
+        <string name="resultCorrect">Правильных: </string>
+    <string name="resultWrong">\nНеправильных: </string>
+
+
 </resources>

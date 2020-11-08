@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@color/colorBackground"
-    android:padding="10dp"
     tools:context=".TestActivity">
 
     <TextView
@@ -16,7 +16,37 @@
         android:layout_marginTop="50dp"
         android:freezesText="true"
         android:text="@string/count"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvNowQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignBottom="@+id/text_view_score"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/tvQuestionScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignBottom="@+id/tvNowQuestion"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="120dp"
+
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="0" />
+
 
     <TextView
         android:id="@+id/text_view_question_count"
@@ -26,8 +56,35 @@
         android:layout_marginStart="20dp"
         android:freezesText="true"
         android:text="@string/counter"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
+
+    <TextView
+        android:id="@+id/tvCountCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_question_count"
+          android:layout_alignParentStart="true"
+          android:layout_marginStart="100dp"
+          android:layout_gravity="center"
+
+            android:textColor="@color/green"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCountWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_question_count"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="120dp"
+
+
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        tools:text="0" />
 
     <TextView
         android:id="@+id/text_view_countdown"
@@ -35,12 +92,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="180dp"
         android:layout_marginTop="45dp"
         android:layout_toEndOf="@+id/text_view_score"
+        android:fontFamily="@font/lcdnova"
         android:freezesText="false"
-        android:textAlignment="center"
         android:text="@string/timer"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="40sp" />
 
@@ -64,9 +122,10 @@
         android:layout_below="@id/tvQuestion"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginRight="10dp"
-        android:textColor="@color/black"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:textColor="@color/black">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,17 +1,13 @@
 package ru.gloomy.geoquiz;
 
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,14 +21,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-
-
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
     private List<String> quizQuestions;
     private AdapterRecyclerView adapter;
-    private int current = 0, correct = 0, wrong = 0, trueAnswers = 0, seconds = 20;
-    private TextView score, questionCount;
+    private int current = 0, correct = 0, wrong = 0,  seconds = 20;
     private boolean running = true;
 
 
@@ -41,9 +34,11 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        int variant = getIntent().getIntExtra("variant: ", 0);
-        Toast.makeText(TestActivity.this, "Выбран вариант № "
-                + variant, Toast.LENGTH_SHORT).show();
+        int a = (int) ( Math.random() * 10 );
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Вариант №: "+a, Toast.LENGTH_SHORT);
+
+        toast.show();
 
 
 
@@ -54,9 +49,9 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
         QuestionList list = gson.fromJson(file, QuestionList.class);
-        Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getQuestion());
-        Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getAnswers());
-        Log.e("TAG", "onCreate: " + list.getQuizQuestions().get(current).getTrueAnswer());
+        Log.e("TAG", "onCreate: listQuestion " + list.getQuizQuestions().get(current).getQuestion());
+        Log.e("TAG", "onCreate: listAnswers" + list.getQuizQuestions().get(current).getAnswers());
+        Log.e("TAG", "onCreate: TrueAnswer" + list.getQuizQuestions().get(current).getTrueAnswer());
         TextView score = findViewById(R.id.text_view_score);
         TextView questionCount = findViewById(R.id.text_view_question_count);
         RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
@@ -69,33 +64,21 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
 
-
-
-
             //заполняем адаптер
             adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(current).getAnswers());
             adapter.setClickListener(this);
             rvAnswers.setAdapter(adapter);
             tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
 
-
         }
-
 
     public void onItemClick(View view, int position) {
 
-        if (position == trueAnswers) {
-            correct++;
-            for (current = 0; current < quizQuestions.size(); current++) ;
-            return;
-        } else {
-            wrong++;
-            for (current = 0; current < quizQuestions.size(); current++) ;
-            return;
-        }
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Ваш ответ: "+ getString(position), Toast.LENGTH_SHORT);
+        toast.show();
+
     }
-
-
 
     public String readTextFile(InputStream inputStream) { // ввод чтение gson
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -135,8 +118,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                     result.putExtra("correct: ", correct);
                     result.putExtra("wrong: ", wrong);
                     startActivity(result);
-                }else {
-
                 }
                 handler.postDelayed(this, 1000);
             }

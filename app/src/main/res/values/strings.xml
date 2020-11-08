@@ -8,14 +8,16 @@
     <string name="work">Страница с результатами теста в разработке. Приносим свои извинения</string>
 
     <string name="timer">00:00</string>
-    <string name="count">Счетчик вопросов</string>
-    <string name="counter">Текущий результат</string>
+    <string name="count">Счет: </string>
+    <string name="counter">Результат: </string>
     <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
         <string name="resultCorrect">Правильных: </string>
     <string name="resultWrong">\nНеправильных: </string>
+    <string name="Intro">by gloomy 2020</string>
+    <string name="ivText">Image</string>
 
 
 </resources>

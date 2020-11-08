@@ -6,11 +6,12 @@
 
     <!--My  colors-->
     <color name="colorBackground">#FFFFFF</color>
-    <color name="white">#FFFFFF</color>
+
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
     <color name="yellow">#d0d001</color>
     <color name="blue">#1976D2</color>
+    <color name="green">#59FF00</color>
     <color name="bg_splash">#FFFFFF</color>
     <color name="page_bg">#F7F5F6</color>
     <color name="page_bg_dim">#FAFAFA</color>

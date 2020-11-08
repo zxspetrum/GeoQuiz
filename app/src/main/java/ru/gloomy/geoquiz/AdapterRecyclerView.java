@@ -13,7 +13,7 @@ import java.util.List;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-    private List<String> mAnswers;
+    private List<String> mAnswers,mTrueAnswer;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
@@ -21,6 +21,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mAnswers = data;
+        this.mTrueAnswer = data;
     }
 
     // данный код увеличивает контейнер RecyclerView в случае необходимости
@@ -35,6 +36,8 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     public void onBindViewHolder(ViewHolder holder, int position) {
         String answers = mAnswers.get(position);
         holder.myTextView.setText(answers);
+        String trueAnswer = mTrueAnswer.get(position);
+        holder.myTextView.setText(trueAnswer);
     }
 
     // общее количество строк

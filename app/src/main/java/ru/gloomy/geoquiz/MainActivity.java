@@ -1,4 +1,7 @@
 package ru.gloomy.geoquiz;
+
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,48 +10,36 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.util.Random;
 
 public class MainActivity extends Activity {
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       int a;
-        final Button but_menu_test, but_menu_resul;
+
+        final Button but_menu_test, but_menu_result;
         final ImageView iv_menu;
 
-        but_menu_resul = findViewById(R.id.but_menu_result);
+        but_menu_result = findViewById(R.id.but_menu_result);
         but_menu_test = findViewById(R.id.but_menu_test);
         iv_menu = findViewById(R.id.iv_menu);
         final Animation animationRotateMenu = AnimationUtils.loadAnimation(
                 this, R.anim.rotate_menu);
 
         View.OnClickListener  allBut = new View.OnClickListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View v) {
-                switch (
-                        v.getId()) {
+                switch (v.getId()) {
                     case R.id.but_menu_test:
-                        but_menu_test.setBackgroundResource(R.drawable.but_menu_press);
-
-                        int a = (int) ( Math.random() * 10 );
+                       but_menu_test.setBackgroundResource(R.drawable.but_press);
                         Intent test = new Intent(MainActivity.this, TestActivity.class);
-                        test.putExtra("variant: ", a);
-
                         startActivity(test);
                         break;
 
-
                     case R.id.but_menu_result:
-                        but_menu_resul.setBackgroundResource(R.drawable.but_menu_press);
+                        but_menu_test.setBackgroundResource(R.drawable.but_press);
                         Intent result = new Intent(MainActivity.this, ResultActivity.class);
                         startActivity(result);
                         break;
@@ -62,12 +53,14 @@ public class MainActivity extends Activity {
 картинка меняется на грам.пластинку.Удерживая нажатием на изображении, пластинка вращяется
 играет музыка, по завершению проигрывания открывается  MOD режим
  */
+
+
                 }
             }
         };
 
         but_menu_test.setOnClickListener(allBut);
-        but_menu_resul.setOnClickListener(allBut);
+        but_menu_result.setOnClickListener(allBut);
         iv_menu.setOnClickListener(allBut);
     }
 

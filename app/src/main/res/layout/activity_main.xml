@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_splash"
@@ -10,67 +10,79 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
-        android:id="@+id/iv_menu"
-        android:layout_width="252dp"
-        android:layout_height="279dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
-        android:src="@drawable/menu"
-        app:layout_constraintBottom_toTopOf="@+id/but_menu_test"
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="50sp"
+        android:theme="@style/TextAppearance.Compat.Notification.Title.Media"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="297dp"
+        android:layout_height="299dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/ivText"
+        android:src="@drawable/menu"
+        app:layout_constraintBottom_toTopOf="@+id/but_menu_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
 
     <Button
         android:id="@+id/but_menu_test"
         android:layout_width="245dp"
         android:layout_height="36dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/but_menu"
         android:fontFamily="@font/ubuntu_light"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
+
         android:text="@string/but_menu_test"
         android:textAlignment="center"
         android:textColor="#FF0000"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/but_menu_result"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_menu" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/but_menu_result"
         android:layout_width="245dp"
         android:layout_height="36dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/but_menu"
         android:fontFamily="@font/ubuntu_light"
-        android:shadowColor="#FFFFFF"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
+
         android:text="@string/but_menu_result"
         android:textAlignment="center"
+
         android:textColor="#FF0000"
         android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvIntro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/Intro"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_menu_test" />
+        tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ package ru.gloomy.geoquiz;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,6 +16,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
         but_menu_result = findViewById(R.id.but_menu_result);
         but_menu_test = findViewById(R.id.but_menu_test);
         iv_menu = findViewById(R.id.iv_menu);
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.scale_butt);
         final Animation animationRotateMenu = AnimationUtils.loadAnimation(
                 this, R.anim.rotate_menu);
 
@@ -31,15 +34,16 @@ public class MainActivity extends Activity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View v) {
+
                 switch (v.getId()) {
                     case R.id.but_menu_test:
-                       but_menu_test.setBackgroundResource(R.drawable.but_press);
+                        but_menu_test.startAnimation(animScale);
                         Intent test = new Intent(MainActivity.this, TestActivity.class);
                         startActivity(test);
                         break;
 
                     case R.id.but_menu_result:
-                        but_menu_test.setBackgroundResource(R.drawable.but_press);
+                        but_menu_result.startAnimation(animScale);
                         Intent result = new Intent(MainActivity.this, ResultActivity.class);
                         startActivity(result);
                         break;

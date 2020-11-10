@@ -1,6 +1,6 @@
 package ru.gloomy.geoquiz;
 
-import android.widget.ArrayAdapter;
+
 
 import java.util.List;
 

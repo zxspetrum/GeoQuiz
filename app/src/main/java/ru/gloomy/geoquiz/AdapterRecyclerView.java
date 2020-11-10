@@ -7,24 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-    private List<String> mAnswers,mTrueAnswer;
-    private LayoutInflater mInflater;
+    private final List<String> mAnswers;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mAnswers = data;
-        this.mTrueAnswer = data;
     }
 
     // данный код увеличивает контейнер RecyclerView в случае необходимости
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
@@ -36,8 +37,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     public void onBindViewHolder(ViewHolder holder, int position) {
         String answers = mAnswers.get(position);
         holder.myTextView.setText(answers);
-        String trueAnswer = mTrueAnswer.get(position);
-        holder.myTextView.setText(trueAnswer);
+
     }
 
     // общее количество строк
@@ -60,7 +60,9 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
         }
     }
 

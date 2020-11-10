@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-    private Drawable mDivider;
+    private final Drawable mDivider;
     private int mOrientation;
     public DividerItemDecoration(Drawable divider) {
         mDivider = divider;
@@ -45,7 +45,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         int parentTop = parent.getPaddingTop();
         int parentBottom = parent.getHeight() - parent.getPaddingBottom();
         int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount -1; i++) {
+        for (int i = 0; i < childCount ; i++) {
             View child = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int parentLeft = child.getRight() + params.rightMargin;
@@ -59,7 +59,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         int parentLeft = parent.getPaddingTop() * 3;
         int parentRight = parent.getWidth() - parent.getPaddingRight();
         int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount -1; i++) {
+        for (int i = 0; i < childCount ; i++) {
             View child = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int parentTop = child.getBottom() + params.bottomMargin;

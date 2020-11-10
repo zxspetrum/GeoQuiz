@@ -23,23 +23,24 @@ import java.util.Locale;
 
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
-    private List<String> quizQuestions;
+    public List<String> quizQuestions;
     private AdapterRecyclerView adapter;
-    private int current = 0, correct = 0, wrong = 0,  seconds = 20;
+    private int current, correct, wrong,  seconds = 20;
     private boolean running = true;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        int a = (int) ( Math.random() * 10 );
+        int a = (int) (Math.random() * 10);
         Toast toast = Toast.makeText(getApplicationContext(),
-                "Вариант №: "+a, Toast.LENGTH_SHORT);
+                "Вариант №: " + a, Toast.LENGTH_SHORT);
 
         toast.show();
-
 
 
         // создаем библиотеку
@@ -49,14 +50,16 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
         QuestionList list = gson.fromJson(file, QuestionList.class);
-        Log.e("TAG", "onCreate: listQuestion " + list.getQuizQuestions().get(current).getQuestion());
-        Log.e("TAG", "onCreate: listAnswers" + list.getQuizQuestions().get(current).getAnswers());
-        Log.e("TAG", "onCreate: TrueAnswer" + list.getQuizQuestions().get(current).getTrueAnswer());
-        TextView score = findViewById(R.id.text_view_score);
-        TextView questionCount = findViewById(R.id.text_view_question_count);
+
+        Log.e("TAG", "onCreate: listQuestion: " + list.getQuizQuestions().get(current).getQuestion());
+        Log.e("TAG", "onCreate: listAnswers: " + list.getQuizQuestions().get(current).getAnswers());
+        Log.e("TAG", "onCreate: listTrueAnswer: "+ list.getQuizQuestions().get(0).getTrueAnswer());
+
+
+
         RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
         TextView tvQuestion = findViewById(R.id.tvQuestion);
-        Collections.shuffle(quizQuestions);
+
         runTimer();
 
 
@@ -64,19 +67,23 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
 
-            //заполняем адаптер
+
+//        //заполняем адаптер
+
+        for (current=0;current<list.getQuizQuestions().size();current++){
             adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(current).getAnswers());
+            Collections.shuffle(quizQuestions);
             adapter.setClickListener(this);
             rvAnswers.setAdapter(adapter);
             tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
+            adapter.notifyDataSetChanged();
 
         }
+    }
 
     public void onItemClick(View view, int position) {
 
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Ваш ответ: "+ getString(position), Toast.LENGTH_SHORT);
-        toast.show();
+        Toast.makeText(this, "Ваш ответ " + adapter.getItem(position) + " номер массива " + position, Toast.LENGTH_SHORT).show();
 
     }
 

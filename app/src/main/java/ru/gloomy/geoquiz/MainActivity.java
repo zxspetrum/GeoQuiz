@@ -19,7 +19,6 @@ public class MainActivity extends Activity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final Button but_menu_test, but_menu_result;
         final ImageView iv_menu;
 
@@ -34,7 +33,6 @@ public class MainActivity extends Activity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.but_menu_test:
                         but_menu_test.startAnimation(animScale);
@@ -62,10 +60,8 @@ public class MainActivity extends Activity {
                 }
             }
         };
-
         but_menu_test.setOnClickListener(allBut);
         but_menu_result.setOnClickListener(allBut);
         iv_menu.setOnClickListener(allBut);
     }
-
 }

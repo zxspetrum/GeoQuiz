@@ -1,27 +1,31 @@
 package ru.gloomy.geoquiz;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-    private final List<String> mAnswers;
-    private final LayoutInflater mInflater;
+
+    private List<String> mAnswers;
+    private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mAnswers = data;
+    }
+
+   public void dataSetChanged (List<String> mAnswers) {
+        this.mAnswers = mAnswers;
+        notifyDataSetChanged();
+
     }
 
     // данный код увеличивает контейнер RecyclerView в случае необходимости
@@ -37,7 +41,6 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     public void onBindViewHolder(ViewHolder holder, int position) {
         String answers = mAnswers.get(position);
         holder.myTextView.setText(answers);
-
     }
 
     // общее количество строк
@@ -78,7 +81,6 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        List<String> onItemClick(View view, int position);
     }
-
 }

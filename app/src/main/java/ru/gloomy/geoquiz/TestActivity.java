@@ -1,5 +1,5 @@
 package ru.gloomy.geoquiz;
-
+//region import class
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,77 +17,72 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+//endregion
 
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
-    public List<String> quizQuestions;
-    private AdapterRecyclerView adapter;
-    private int current, correct, wrong,  seconds = 20;
-    private boolean running = true;
-
-
+   public List<String> quizQuestions;
+   private AdapterRecyclerView adapter;
+   private int length , correct, wrong,  seconds = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-
+//region создание random числа для варианта
         int a = (int) (Math.random() * 10);
         Toast toast = Toast.makeText(getApplicationContext(),
                 "Вариант №: " + a, Toast.LENGTH_SHORT);
-
         toast.show();
-
+        //endregion
 
         // создаем библиотеку
-
         quizQuestions = new ArrayList<>();
         Gson gson = new Gson();
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
         QuestionList list = gson.fromJson(file, QuestionList.class);
 
-        Log.e("TAG", "onCreate: listQuestion: " + list.getQuizQuestions().get(current).getQuestion());
-        Log.e("TAG", "onCreate: listAnswers: " + list.getQuizQuestions().get(current).getAnswers());
-        Log.e("TAG", "onCreate: listTrueAnswer: "+ list.getQuizQuestions().get(0).getTrueAnswer());
+//region LOG.e
+        Log.e("TAG", "onCreate: listQuestion: " + list.getQuizQuestions().get(length).getQuestion());
+        Log.e("TAG", "onCreate: listAnswers: " + list.getQuizQuestions().get(length).getAnswers());
+        Log.e("TAG", "onCreate: listTrueAnswer: "+ list.getQuizQuestions().get(length).getTrueAnswer());
 
-
-
-        RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
+//endregion
+        RecyclerView rvAnswers;
+        rvAnswers = findViewById(R.id.rvAnswers);
         TextView tvQuestion = findViewById(R.id.tvQuestion);
-
         runTimer();
 
-
-        // инициализируем костомный список
+//region инициализируем костомный список
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
+        //endregion
 
-
-//        //заполняем адаптер
-
-        for (current=0;current<list.getQuizQuestions().size();current++){
-            adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(current).getAnswers());
-            Collections.shuffle(quizQuestions);
+       //заполняем адаптер
+            adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(length).getAnswers());
             adapter.setClickListener(this);
             rvAnswers.setAdapter(adapter);
-            tvQuestion.setText(list.getQuizQuestions().get(current).getQuestion());
-            adapter.notifyDataSetChanged();
+            tvQuestion.setText(list.getQuizQuestions().get(length).getQuestion());
+
+    }
+
+    public List<String> onItemClick(View view, int position) {
+        //= quizQuestions.size();
+        for (int length =0; length<quizQuestions.size();) {
+            Toast.makeText(this, "Ваш ответ " + adapter.getItem(position) + " номер массива " + position +" длина массива: " +length, Toast.LENGTH_SHORT).show();
+            adapter.dataSetChanged(quizQuestions);
+            quizQuestions.get(length++);
 
         }
+        return null;
     }
 
-    public void onItemClick(View view, int position) {
-
-        Toast.makeText(this, "Ваш ответ " + adapter.getItem(position) + " номер массива " + position, Toast.LENGTH_SHORT).show();
-
-    }
-
-    public String readTextFile(InputStream inputStream) { // ввод чтение gson
+//region ввод чтение gson
+    public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte buf[] = new byte[1024];
         int len;
@@ -103,6 +98,9 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         return outputStream.toString();
 
     }
+//endregion
+
+//region таймер обратного счета
     private void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
         final Handler handler = new Handler();
@@ -130,7 +128,9 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             }
         });
     }
+//endregion
 
+//region жизненный цикл приложения
     @Override
     protected void onStart() {
         super.onStart();
@@ -160,6 +160,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         super.onDestroy();
         Log.e("TAG", "onDestroy() called");
     }
+//endregion
 }
 
 

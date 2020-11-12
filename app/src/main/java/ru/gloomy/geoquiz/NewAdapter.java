@@ -1,66 +1,52 @@
 package ru.gloomy.geoquiz;
 
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context mContext;
-    private List<String> mAnswer;
-    private OnAdapterClickListener mListener;
+import java.util.ArrayList;
+import java.util.List;
 
-    public NewAdapter(Context context, List<String> mAnswer, OnAdapterClickListener mListener) {
-this.mAnswer=mAnswer;
-this.mContext=context;
-this.mListener=mListener;
+public class NewAdapter extends RecyclerView.Adapter<NewAdapter.NewViewHolder> {
+    private List<QuizQuestion> listQuestionList = new ArrayList<>();
 
- }
+    public NewAdapter (List<QuizQuestion> mAnswers){
+        listQuestionList = mAnswers;
+    }
+    public void dataSetChanged (List<QuizQuestion>listQuestionList){
+        this.listQuestionList = listQuestionList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_item,parent, false);
-        RecyclerView.ViewHolder holder = new NamesViewHolder(root);
-        return holder;
+    public NewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent,false);
+        return new NewViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        NamesViewHolder viewHolder = (NamesViewHolder) holder;
+    public void onBindViewHolder(@NonNull NewViewHolder holder, int position) {
 
-        viewHolder.name.setText(mAnswer.get(position));
-        viewHolder.itemView.setTag(mAnswer.get(position));
+        holder.listQuestion.setText(listQuestionList.get(position).getQuestion());
     }
 
     @Override
     public int getItemCount() {
-
-        if(mAnswer ==null) return 0;
-        return mAnswer.size();
+        return listQuestionList.size();
     }
-    class NamesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name;
-        public NamesViewHolder(View itemView){
+
+    public static class NewViewHolder extends RecyclerView.ViewHolder{
+
+        TextView listQuestion;
+        public NewViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            name = itemView.findViewById(R.id.rvAnswers);
-            itemView.setOnClickListener(this);
+             listQuestion = itemView.findViewById(R.id.rvAnswers);
         }
-        @Override
-        public void onClick(View view){
-            itemView.setOnClickListener(this);
-        }
-    }
-
-    interface OnAdapterClickListener{
-        void OnAdapterClick(int position, String name);
-
     }
 }

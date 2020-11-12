@@ -1,5 +1,6 @@
 package ru.gloomy.geoquiz;
 //region import class
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,11 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,9 +27,11 @@ import java.util.Locale;
 
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
-   public List<String> quizQuestions;
-   private AdapterRecyclerView adapter;
-   private int length , correct, wrong,  seconds = 20;
+    private  QuestionList questionList;
+    private AdapterRecyclerView adapter;
+    private int currentQuestion, indexAnswer, correct, wrong, seconds = 20;
+    private int size;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +46,20 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         //endregion
 
         // создаем библиотеку
-        quizQuestions = new ArrayList<>();
+        questionList = new QuestionList();
         Gson gson = new Gson();
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
-        QuestionList list = gson.fromJson(file, QuestionList.class);
+        questionList = gson.fromJson(file, QuestionList.class);
+        size = questionList.getQuizQuestions().size();
+      //indexTrueAnswer= questionList.getQuizQuestions().get().getTrueAnswer();
+
+
 
 //region LOG.e
-        Log.e("TAG", "onCreate: listQuestion: " + list.getQuizQuestions().get(length).getQuestion());
-        Log.e("TAG", "onCreate: listAnswers: " + list.getQuizQuestions().get(length).getAnswers());
-        Log.e("TAG", "onCreate: listTrueAnswer: "+ list.getQuizQuestions().get(length).getTrueAnswer());
+        Log.e("TAG", "onCreate: listQuestion: " + questionList.getQuizQuestions().get(currentQuestion).getQuestion());
+        Log.e("TAG", "onCreate: listAnswers: " + questionList.getQuizQuestions().get(currentQuestion).getAnswers());
+        Log.e("TAG", "onCreate: listTrueAnswer: " + questionList.getQuizQuestions().get(3).getTrueAnswer());
 
 //endregion
         RecyclerView rvAnswers;
@@ -60,28 +70,28 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 //region инициализируем костомный список
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
-        //endregion
+//endregion
 
-       //заполняем адаптер
-            adapter = new AdapterRecyclerView(this, list.getQuizQuestions().get(length).getAnswers());
-            adapter.setClickListener(this);
-            rvAnswers.setAdapter(adapter);
-            tvQuestion.setText(list.getQuizQuestions().get(length).getQuestion());
+        //заполняем адаптер
+            for (currentQuestion = 0 ;currentQuestion < size; currentQuestion++) {
+                adapter = new AdapterRecyclerView(this, questionList.getQuizQuestions().get(currentQuestion).getAnswers());
+                adapter.setClickListener(this);
+                rvAnswers.setAdapter(adapter);
+                tvQuestion.setText(questionList.getQuizQuestions().get(currentQuestion).getQuestion());
 
+
+            }
     }
 
     public List<String> onItemClick(View view, int position) {
-        //= quizQuestions.size();
-        for (int length =0; length<quizQuestions.size();) {
-            Toast.makeText(this, "Ваш ответ " + adapter.getItem(position) + " номер массива " + position +" длина массива: " +length, Toast.LENGTH_SHORT).show();
-            adapter.dataSetChanged(quizQuestions);
-            quizQuestions.get(length++);
-
-        }
-        return null;
+       // for (currentQuestion=0;currentQuestion< questionList.getQuizQuestions().size();) {
+            Toast.makeText(this, "Ваш ответ: " + adapter.getItem(position) + ", номер массива: " + position + ", длина массива: " + size+". Правильный ответ: "+indexAnswer, Toast.LENGTH_SHORT).show();
+        adapter.dataSetChanged();
+            //   adapter.dataSetChanged();
+            return null;
     }
 
-//region ввод чтение gson
+    //region ввод чтение gson
     public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte buf[] = new byte[1024];
@@ -96,11 +106,10 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
         }
         return outputStream.toString();
-
     }
 //endregion
 
-//region таймер обратного счета
+    //region таймер обратного счета
     private void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
         final Handler handler = new Handler();
@@ -116,7 +125,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 if (seconds < 15) {
                     timeView.setTextColor(Color.RED);
 
-                } if  ( seconds == 0){
+                }
+                if (seconds == 0) {
                     finish();
 
                     Intent result = new Intent(TestActivity.this, ResultActivity.class);
@@ -130,7 +140,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     }
 //endregion
 
-//region жизненный цикл приложения
+    //region жизненный цикл приложения
     @Override
     protected void onStart() {
         super.onStart();
@@ -140,13 +150,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("TAG","onPause() called");
+        Log.e("TAG", "onPause() called");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("TAG","onResume() called");
+        Log.e("TAG", "onResume() called");
     }
 
     @Override

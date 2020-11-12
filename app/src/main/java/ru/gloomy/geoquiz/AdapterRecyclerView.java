@@ -22,7 +22,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         this.mAnswers = data;
     }
 
-   public void dataSetChanged (List<String> mAnswers) {
+   public void dataSetChanged() {
         this.mAnswers = mAnswers;
         notifyDataSetChanged();
 

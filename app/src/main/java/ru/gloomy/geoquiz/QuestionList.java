@@ -14,8 +14,9 @@ public class QuestionList {
         return quizQuestions;
     }
 
-    public void setQuizQuestions(List<QuizQuestion> quizQuestions) {
+    public int setQuizQuestions() {
         this.quizQuestions = quizQuestions;
+        return 0;
     }
 
 

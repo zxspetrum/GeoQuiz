@@ -1,5 +1,6 @@
 <resources>
 
+    <!-- TODO: activity menu -->
     <string name="app_name">Geo Quiz</string>
     <string name="description">Проверь свои знания !</string>
     <string name="image_icon">image_icon_menu</string>
@@ -7,17 +8,22 @@
     <string name="but_menu_result">Результат</string>
     <string name="work">Страница с результатами теста в разработке. Приносим свои извинения</string>
 
-    <string name="timer">00:00</string>
-    <string name="count">Счет: </string>
-    <string name="counter">Результат: </string>
-    <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: activity result -->
         <string name="resultCorrect">Правильных: </string>
     <string name="resultWrong">\nНеправильных: </string>
     <string name="Intro">by gloomy 2020</string>
     <string name="ivText">Image</string>
+
+
+    <!-- TODO:  activity test -->
+    <string name="timer">00:00</string>
+    <string name="count">Вопрос: </string>
+    <string name="counter">Результат: </string>
+    <string name="slash"> из </string>
+    <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
 
 
 </resources>

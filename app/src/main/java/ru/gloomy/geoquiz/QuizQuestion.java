@@ -10,7 +10,7 @@ public class QuizQuestion {
 
     private String question;
     private List<String> answers = null;
-    private long trueAnswer;
+    private int trueAnswer;
     private int variant;
 
     public String getQuestion() {
@@ -29,12 +29,12 @@ public class QuizQuestion {
         this.answers = answers;
     }
 
-    public long getTrueAnswer() {
+    public int getTrueAnswer() {
         return trueAnswer;
     }
 
-    public void  setTrueAnswer() {
-        this.trueAnswer = trueAnswer;
+    public int  setTrueAnswer() {
+        return trueAnswer;
     }
 
     public int getVariant() {

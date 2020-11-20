@@ -22,12 +22,6 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         this.mAnswers = data;
     }
 
-   public void dataSetChanged() {
-        this.mAnswers = mAnswers;
-        notifyDataSetChanged();
-
-    }
-
     // данный код увеличивает контейнер RecyclerView в случае необходимости
     @NonNull
     @Override
@@ -38,8 +32,8 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
     // связывает данные с TextView в каждой строке
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String answers = mAnswers.get(position);
+    public void onBindViewHolder(ViewHolder holder, int mPositionItemAnswer) {
+        String answers = mAnswers.get(mPositionItemAnswer);
         holder.myTextView.setText(answers);
     }
 
@@ -48,8 +42,6 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     public int getItemCount() {
         return mAnswers.size();
     }
-
-
 
     // сохраняет и перерабатывает просмотры по мере их прокрутки за пределы экрана
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -63,9 +55,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
-                mClickListener.onItemClick(view, getAdapterPosition());
-            }
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 

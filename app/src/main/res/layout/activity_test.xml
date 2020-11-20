@@ -27,6 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:layout_marginStart="100dp"
+        android:text="01"
         android:textColor="@color/black"
         android:textSize="16sp"
         tools:text="00" />
@@ -73,12 +74,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/text_view_question_count"
-          android:layout_alignParentStart="true"
-          android:layout_marginStart="100dp"
-          android:layout_gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
 
-            android:textColor="@color/green"
-        android:textSize="16sp" />
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        tools:text="00" />
 
     <TextView
         android:id="@+id/tvCountWrong"
@@ -87,12 +89,12 @@
         android:layout_alignBottom="@+id/text_view_question_count"
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="140dp"
 
 
         android:textColor="@color/red"
         android:textSize="16sp"
-        tools:text="0" />
+        tools:text="00" />
 
     <TextView
         android:id="@+id/text_view_countdown"
@@ -115,8 +117,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_question_count"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="150dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
         android:freezesText="true"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -126,12 +130,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="301dp"
         android:layout_below="@id/tvQuestion"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="100dp"
         android:padding="5dp"
         android:textColor="@color/black">
 

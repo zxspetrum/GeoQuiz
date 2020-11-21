@@ -9,7 +9,7 @@
         "Пекин",
         "Канберра"
       ],
-      "true_answer": 3,
+      "trueAnswer": 3,
       "variant": "1"
     },
     {
@@ -20,7 +20,7 @@
         "Ганг",
         "Дунай."
       ],
-      "true_answer": 1,
+      "trueAnswer": 1,
       "variant": "1"
     },
     {
@@ -31,7 +31,7 @@
         "Байкал",
         "Сан-Мартин "
       ],
-      "true_answer": 2,
+      "trueAnswer": 2,
       "variant": "1"
     },
     {
@@ -42,7 +42,7 @@
         "Бразилия",
         "Египет"
       ],
-      "true_answer": 3,
+      "trueAnswer": 3,
       "variant": "1"
     },
     {
@@ -53,7 +53,7 @@
         "Каспийское море.",
         "Южный"
       ],
-      "true_answer": 3,
+      "trueAnswer": 3,
       "variant": "1"
     },
     {
@@ -64,7 +64,7 @@
         "Индийского",
         "Мирового"
       ],
-      "true_answer": 1,
+      "trueAnswer": 1,
       "variant": "1"
     },
     {
@@ -75,7 +75,7 @@
         "Москва",
         "Бомбей"
       ],
-      "true_answer": 1,
+      "trueAnswer": 1,
       "variant": "1"
     }
   ]

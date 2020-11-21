@@ -17,4 +17,9 @@
     <color name="page_bg_dim">#FAFAFA</color>
 
 
+    <!-- цет строки RecycleView при на жатии-->
+    <color name="backgroundItemPrimary">#FFFFFF</color>
+    <color name="backgroundItemClick">#CCCCCC</color>
+
+
 </resources>

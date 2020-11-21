@@ -6,21 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.collection.ArraySet;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
-
     private List<String> mAnswers;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mAnswers = data;
     }
+
+
 
     // данный код увеличивает контейнер RecyclerView в случае необходимости
     @NonNull
@@ -29,14 +36,12 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
-
     // связывает данные с TextView в каждой строке
     @Override
     public void onBindViewHolder(ViewHolder holder, int mPositionItemAnswer) {
         String answers = mAnswers.get(mPositionItemAnswer);
         holder.myTextView.setText(answers);
     }
-
     // общее количество строк
     @Override
     public int getItemCount() {
@@ -52,13 +57,11 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
             myTextView = itemView.findViewById(R.id.tvAnswers);
             itemView.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-
     // метод получения данных при клике
     String getItem(int id) {
         return mAnswers.get(id);
@@ -68,7 +71,13 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
+    public void updateAdapterData() {
+        //mAnswers.clear();
+       // mAnswers.addAll(mAnswers);
 
+        notifyDataSetChanged();
+
+    }
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
         List<String> onItemClick(View view, int position);

@@ -18,8 +18,6 @@ public class QuestionList {
         this.quizQuestions = quizQuestions;
         return 0;
     }
-
-
 }
 
 

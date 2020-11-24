@@ -1,6 +1,8 @@
 package ru.gloomy.geoquiz;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            Log.d("positionItem: ", ""+getAdapterPosition());
         }
     }
     // метод получения данных при клике
@@ -71,12 +74,12 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
-    public void updateAdapterData() {
-        //mAnswers.clear();
-       // mAnswers.addAll(mAnswers);
+    public void updateAdapterData(List<String> newAnswers) {
 
-        notifyDataSetChanged();
-
+       mAnswers = newAnswers;
+     // newAnswers.clear();
+       //newAnswers.addAll(mAnswers);
+       notifyDataSetChanged();
     }
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {

@@ -26,7 +26,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
     private QuestionList mQuestionList;
     private AdapterRecyclerView mAdapter;
-    private RecyclerView rvAnswers;
+
     private String StringTrueAnswer;
     private int mCurrentQuestion;
     private int mCorrectAnswer;
@@ -59,21 +59,18 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        rvAnswers = findViewById(R.id.rvAnswers);
+        RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
         mTvQuestion = findViewById(R.id.tvQuestion);
         mTvCountCorrect = findViewById(R.id.tvCountCorrect);
         mTvCountWrong = findViewById(R.id.tvCountWrong);
         mTvQuestionScore = findViewById(R.id.tvQuestionScore);
         mTvNowQuestion = findViewById(R.id.tvNowQuestion);
 
-        //mIndexTrueAnswer = toString(mQuestionList.getQuizQuestions().get());
-
-        //region создание random числа для варианта
+        //создание random числа для варианта
         int a = (int) (Math.random() * 10);
         Toast toast = Toast.makeText(getApplicationContext(),
                 "Вариант №: " + a, Toast.LENGTH_SHORT);
         toast.show();
-//endregion
 
         //region создаем библиотеку
         mQuestionList = new QuestionList();
@@ -84,12 +81,10 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         mSizeArray = mQuestionList.getQuizQuestions().size();
         mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(0).getTrueAnswer();
 
-
-        //region LOG.e
+        //LOG.e
         Log.e("TAG", "onCreate: listQuestion: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
         Log.e("TAG", "onCreate: listAnswers: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
         Log.e("TAG", "onCreate: trueAnswers: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer());
-//endregion
 
         mAdapter = new AdapterRecyclerView(this, mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -98,13 +93,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         mTvQuestionScore.setText(String.format("%02d", mSizeArray));
         rvAnswers.setAdapter(mAdapter);
         mAdapter.setClickListener(this);
-            if (mCurrentQuestion < mSizeArray) {
-                mCurrentQuestion++;
-            } else {
+            if (mCurrentQuestion > mSizeArray) {
                 endGame();
+            } else {
+                mCurrentQuestion++;
         }
     }
-    //region ввод чтение GSON
+    //ввод чтение GSON
     public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte buf[] = new byte[1024];
@@ -120,8 +115,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         }
         return outputStream.toString();
     }
-    //endregion
-
     public List<String> onItemClick(View view, int mPositionItemAnswer) {
         mClickAnswer = mPositionItemAnswer;
         Toast.makeText(this, "Номер вопроса: " + mCurrentQuestion + " Ваш ответ: " + mAdapter.getItem(mPositionItemAnswer) + ", номер массива: " + mPositionItemAnswer + ", длина массива: " + mSizeArray + ". Правильный ответ: " + mIndexTrueAnswer,
@@ -131,9 +124,10 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         return null;
     }
     public void updateQuestionsAndAnswers() {
-            mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
+        mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
 
         mAdapter.updateAdapterData();
+
     }
 
     @SuppressLint("DefaultLocale")
@@ -143,23 +137,23 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             mCurrentQuestion++;
             mTvNowQuestion.setText(String.format("%02d",mCurrentQuestion));
             mTvCountCorrect.setText(String.format("%02d",mCorrectAnswer));
-            updateQuestionsAndAnswers();
         } else {
             mWrongAnswer++;
             mCurrentQuestion++;
             mTvNowQuestion.setText(String.format("%02d",mCurrentQuestion));
             mTvCountWrong.setText(String.format("%02d",mWrongAnswer));
-            updateQuestionsAndAnswers();
         }
+        updateQuestionsAndAnswers();
     }
     public final void endGame() {
             /*
              * реализовать Диалоговое окно. Активити Результат заменить на справочник с сылуками на статьи в Википедии
              */
+
             Intent result = new Intent(TestActivity.this, ResultActivity.class);
             startActivity(result);
         }
-    //region таймер обратного счета
+    //таймер обратного счета
     private void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
         final Handler handler = new Handler();
@@ -187,5 +181,4 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             }
         });
     }
-//endregion
 }

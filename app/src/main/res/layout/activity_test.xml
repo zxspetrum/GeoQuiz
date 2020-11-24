@@ -39,7 +39,7 @@
         android:layout_alignBottom="@+id/tvNowQuestion"
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="125dp"
         android:text="@string/slash"
         android:textColor="@color/black"
         android:textSize="16sp" />
@@ -83,6 +83,18 @@
         tools:text="00" />
 
     <TextView
+        android:id="@+id/tvAnswerScoreSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvCountCorrect"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="125dp"
+        android:text="@string/slash"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/tvCountWrong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,13 +126,14 @@
 
     <TextView
         android:id="@+id/tvQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="77dp"
+        android:layout_above="@+id/rvAnswers"
         android:layout_below="@id/text_view_question_count"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="24dp"
         android:freezesText="true"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -129,15 +142,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswers"
-        android:layout_width="match_parent"
-        android:layout_height="301dp"
-        android:layout_below="@id/tvQuestion"
+        android:layout_width="393dp"
+        android:layout_height="341dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="60dp"
         android:padding="5dp"
         android:textColor="@color/black">
 

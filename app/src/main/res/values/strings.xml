@@ -22,7 +22,7 @@
     <string name="timer">00:00</string>
     <string name="count">Вопрос: </string>
     <string name="counter">Результат: </string>
-    <string name="slash"> из </string>
+    <string name="slash">  / </string>
     <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
 
 

@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 //endregion
@@ -37,6 +39,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private int mSecondsTimerCountdown = 20;
     private int mPositionItemAnswer;
     private TextView mTvQuestionScore, mTvNowQuestion, mTvCountCorrect, mTvCountWrong, mTvQuestion;
+    private List<String> newAnswers;
+   
 
  /* Дабы не запутаться :
 
@@ -93,7 +97,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         mTvQuestionScore.setText(String.format("%02d", mSizeArray));
         rvAnswers.setAdapter(mAdapter);
         mAdapter.setClickListener(this);
-            if (mCurrentQuestion > mSizeArray) {
+            if (mCurrentQuestion > mSizeArray+1) {
                 endGame();
             } else {
                 mCurrentQuestion++;
@@ -125,11 +129,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     }
     public void updateQuestionsAndAnswers() {
         mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
-
-        mAdapter.updateAdapterData();
-
+        mAdapter.updateAdapterData(newAnswers);
     }
-
     @SuppressLint("DefaultLocale")
     public void countTruAndWrongAndAnswers() {
         if (mClickAnswer == mIndexTrueAnswer) {

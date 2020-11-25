@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
+
+import www.sanju.motiontoast.MotionToast;
+
 public class MenuActivity extends Activity {
     private long backPressedTime;
-    private  Toast backToast;
+    private Toast backToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class MenuActivity extends Activity {
         final Animation animationRotateMenu = AnimationUtils.loadAnimation(
                 this, R.anim.rotate_menu);
 
-        View.OnClickListener  allBut = new View.OnClickListener() {
+        View.OnClickListener allBut = new View.OnClickListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View v) {
@@ -57,8 +61,6 @@ public class MenuActivity extends Activity {
 картинка меняется на грам.пластинку.Удерживая нажатием на изображении, пластинка вращяется
 играет музыка, по завершению проигрывания открывается  MOD режим
  */
-
-
                 }
             }
         };
@@ -66,22 +68,25 @@ public class MenuActivity extends Activity {
         but_menu_result.setOnClickListener(allBut);
         iv_menu.setOnClickListener(allBut);
     }
-//region Обработка системной кнопки Назад
 
+    //Обработка системной кнопки Назад
     @Override
     public void onBackPressed() {
-
-        if (backPressedTime + 2000 >System.currentTimeMillis()) {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backToast.cancel();
             super.onBackPressed();
             return;
-        }else {
-            backToast = Toast.makeText(getBaseContext(),"Нажмите еще раз для выхода из приложения",
-                    Toast.LENGTH_SHORT);
-            backToast.show();
+        } else {
+            CostomToast();
         }
         backPressedTime = System.currentTimeMillis();
     }
 
-//endregion
+    public void CostomToast() {
+        MotionToast.Companion.darkToast(MenuActivity.this, "Внимание,", "Нажмите еще раз для выхода из приложения",
+                MotionToast.TOAST_ERROR,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.SHORT_DURATION,
+                ResourcesCompat.getFont(this, R.font.ubuntu_light));
+    }
 }

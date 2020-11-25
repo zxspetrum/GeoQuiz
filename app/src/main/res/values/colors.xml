@@ -6,7 +6,6 @@
 
     <!--My  colors-->
     <color name="colorBackground">#FFFFFF</color>
-
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
     <color name="yellow">#d0d001</color>
@@ -17,9 +16,13 @@
     <color name="page_bg_dim">#FAFAFA</color>
 
 
-    <!-- цет строки RecycleView при на жатии-->
+    <!-- цветвая схема RecycleView при на жатии-->
     <color name="backgroundItemPrimary">#FFFFFF</color>
     <color name="backgroundItemClick">#CCCCCC</color>
+
+    <!--  цветвая схема кастомного диалогового окна endGame-->-->
+
+
 
 
 </resources>

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
+public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
     private List<String> mAnswers;
     private LayoutInflater mInflater;
@@ -77,8 +77,6 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     public void updateAdapterData(List<String> newAnswers) {
 
        mAnswers = newAnswers;
-     // newAnswers.clear();
-       //newAnswers.addAll(mAnswers);
        notifyDataSetChanged();
     }
     // activity будет реализовывать этот метод для ответа на события щелчка

@@ -3,6 +3,7 @@ package ru.gloomy.geoquiz;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,15 +15,17 @@ import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.Timer;
+
 import www.sanju.motiontoast.MotionToast;
 
 public class MenuActivity extends Activity {
     private long backPressedTime;
-    private Toast backToast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+      //  setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         final Button but_menu_test, but_menu_result;
@@ -68,25 +71,25 @@ public class MenuActivity extends Activity {
         but_menu_result.setOnClickListener(allBut);
         iv_menu.setOnClickListener(allBut);
     }
-
     //Обработка системной кнопки Назад
     @Override
     public void onBackPressed() {
+
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            backToast.cancel();
+
             super.onBackPressed();
             return;
         } else {
-            CostomToast();
+            customToast();
         }
         backPressedTime = System.currentTimeMillis();
     }
-
-    public void CostomToast() {
-        MotionToast.Companion.darkToast(MenuActivity.this, "Внимание,", "Нажмите еще раз для выхода из приложения",
+    public void customToast() {
+        MotionToast.Companion.createColorToast(MenuActivity.this, "Внимание,", "Для выхода нажмите еще раз ",
                 MotionToast.TOAST_ERROR,
-                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.GRAVITY_CENTER,
                 MotionToast.SHORT_DURATION,
                 ResourcesCompat.getFont(this, R.font.ubuntu_light));
+
     }
 }

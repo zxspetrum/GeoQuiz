@@ -8,9 +8,6 @@
     <string name="but_menu_result">Результат</string>
     <string name="work">Страница с результатами теста в разработке. Приносим свои извинения</string>
 
-
-
-
     <!-- TODO: activity result -->
         <string name="resultCorrect">Правильных: </string>
     <string name="resultWrong">\nНеправильных: </string>
@@ -24,6 +21,13 @@
     <string name="counter">Результат: </string>
     <string name="slash">  / </string>
     <string name="question">Поле для вопросов \nПоле для вопросов \nПоле для вопросов</string>
+
+    <!-- TODO: Текст всплывающих окон -->
+    <string name="popup_text_default">Ваш результат:  </string>
+    <string name="positive_popup_title_default">Отлично!!!</string>
+    <string name="negative_popup_title_default">Тест не сдан</string>
+    <string name="neutral_popup_title_default">Есть над чем поработать</string>
+
 
 
 </resources>

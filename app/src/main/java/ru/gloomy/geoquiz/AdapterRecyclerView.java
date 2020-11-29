@@ -1,6 +1,5 @@
 package ru.gloomy.geoquiz;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,33 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
     private List<String> mAnswers;
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mAnswers = data;
     }
-
-
-
     // данный код увеличивает контейнер RecyclerView в случае необходимости
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
@@ -74,13 +64,12 @@ public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecycler
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
-    public void updateAdapterData(List<String> newAnswers) {
-
-       mAnswers = newAnswers;
-       notifyDataSetChanged();
-    }
+ public void updateAdapterData(List<String> newAnswers) {
+     mAnswers = newAnswers;
+     notifyDataSetChanged();
+   }
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
-        List<String> onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 }

@@ -1,110 +1,90 @@
 package ru.gloomy.geoquiz;
+
 //region import class
+
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Locale;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 //endregion
 
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
     private QuestionList mQuestionList;
     private AdapterRecyclerView mAdapter;
-    private RecyclerView rvAnswers;
-    private String StringTrueAnswer;
-    private int mCurrentQuestion;
+    private int mCurrentQuestion = 0;
     private int mCorrectAnswer;
     private int mWrongAnswer;
     private int mSizeArray;
-    private int mIndexTrueAnswer;
-    private int mClickAnswer;
-    private int mSecondsTimerCountdown = 20;
-    private int mPositionItemAnswer;
-    private TextView mTvQuestionScore, mTvNowQuestion, mTvCountCorrect, mTvCountWrong, mTvQuestion;
+    private String mIndexTrueAnswer;
 
- /* Дабы не запутаться :
+    private int mTotalResult;
+    private int mSecondsTimerCountdown = 300;
+    private TextView mTvNowQuestion;
+    private TextView mTvCountCorrect;
+    private TextView mTvCountWrong;
+    private TextView mTvQuestion;
+    private  Dialog gameEnd;
+    private  Button btnAccept;
+    private TextView titleTvPopupNegativeImg, messageTvPopupNegativeImg, resultTvPopupNegativeImg;
+    private  TextView titleTvPopupPositiveImg, messageTvPopupPositiveImg, resultTvPopupPositiveImg;
+    private   TextView titleTvPopupNeutralImg, messageTvPopupNeutralImg, resultTvPopupNeutralImg;
+    private String mPositionItemAnswer;
 
-    mCorrectAnswer - счёт количества правильных ответов,
-    mWrongAnswer;
-    mCurrentQuestion- счет количесва отвеченных вопросов,
-    mSizeArray - размер массива(количество вопросов),
-    mIndexTrueAnswer - номер правильного ответа,
-    mSecondsTimerCountdown - время отведённое на тест (сек);
-    mPositionItemAnswer/
-
-    vQuestionScore - общее количество вопросов , tvNowQuestion - для отображения количество отвеченных вопросов, tvCountCorrect - отображает количество правильных вопросов,
-     tvCountWrong - отображает количество неправильных вопросов, tvQuestion - обоюражени вопроса из json.
-
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        rvAnswers = findViewById(R.id.rvAnswers);
+        RecyclerView rvAnswers = findViewById(R.id.rvAnswers);
         mTvQuestion = findViewById(R.id.tvQuestion);
         mTvCountCorrect = findViewById(R.id.tvCountCorrect);
         mTvCountWrong = findViewById(R.id.tvCountWrong);
-        mTvQuestionScore = findViewById(R.id.tvQuestionScore);
+        TextView tvQuestionScore = findViewById(R.id.tvQuestionScore);
         mTvNowQuestion = findViewById(R.id.tvNowQuestion);
-
-        //mIndexTrueAnswer = toString(mQuestionList.getQuizQuestions().get());
-
-        //region создание random числа для варианта
-        int a = (int) (Math.random() * 10);
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Вариант №: " + a, Toast.LENGTH_SHORT);
-        toast.show();
-//endregion
-
-        //region создаем библиотеку
+        gameEnd = new Dialog(this);
         mQuestionList = new QuestionList();
         Gson gson = new Gson();
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
         mQuestionList = gson.fromJson(file, QuestionList.class);
-        mSizeArray = mQuestionList.getQuizQuestions().size();
-        mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(0).getTrueAnswer();
 
-
-        //region LOG.e
-        Log.e("TAG", "onCreate: listQuestion: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
-        Log.e("TAG", "onCreate: listAnswers: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
-        Log.e("TAG", "onCreate: trueAnswers: " + mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer());
-//endregion
-
-        mAdapter = new AdapterRecyclerView(this, mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
-        runTimer();
-        mTvQuestionScore.setText(String.format("%02d", mSizeArray));
+
+        mAdapter = new AdapterRecyclerView(this, mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
+        mSizeArray = mQuestionList.getQuizQuestions().size();
+        tvQuestionScore.setText(String.format("%02d", mSizeArray));
+        mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
         rvAnswers.setAdapter(mAdapter);
         mAdapter.setClickListener(this);
-            if (mCurrentQuestion < mSizeArray) {
-                mCurrentQuestion++;
-            } else {
-                endGame();
-        }
+
+        mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
+
     }
-    //region ввод чтение GSON
+
+    //ввод чтение GOON
     public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte buf[] = new byte[1024];
@@ -116,76 +96,114 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             outputStream.close();
             inputStream.close();
         } catch (IOException e) {
-
         }
         return outputStream.toString();
     }
-    //endregion
 
-    public List<String> onItemClick(View view, int mPositionItemAnswer) {
-        mClickAnswer = mPositionItemAnswer;
-        Toast.makeText(this, "Номер вопроса: " + mCurrentQuestion + " Ваш ответ: " + mAdapter.getItem(mPositionItemAnswer) + ", номер массива: " + mPositionItemAnswer + ", длина массива: " + mSizeArray + ". Правильный ответ: " + mIndexTrueAnswer,
-                Toast.LENGTH_SHORT).show();
-        updateQuestionsAndAnswers();
-        countTruAndWrongAndAnswers();
+    public List<String> onItemClick(View view, String mPositionItemAnswer) {
+
+
+        Toast toast =  Toast.makeText(this,"Выбран ответ: "+ mPositionItemAnswer + " Правильный ответ; "+ mIndexTrueAnswer,Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0,160);
+        toast.show();
+        if (countTruAndWrongAndAnswers()) {
+            currentTotal();
+        } else {
+            updateQuestionsAndAnswers();
+        }
         return null;
     }
+
     public void updateQuestionsAndAnswers() {
-            mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
-
-        mAdapter.updateAdapterData();
+        QuizQuestion quizQuestion = mQuestionList.getQuizQuestions().get(mCurrentQuestion);
+        mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
+        mAdapter.updateAdapterData(quizQuestion.getAnswers());
+        mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
     }
-
     @SuppressLint("DefaultLocale")
-    public void countTruAndWrongAndAnswers() {
-        if (mClickAnswer == mIndexTrueAnswer) {
+    public boolean  countTruAndWrongAndAnswers() {
+            boolean   equals = mIndexTrueAnswer.equals(mAdapter.getItem(mCurrentQuestion));
+        if (equals==true) {
+
             mCorrectAnswer++;
             mCurrentQuestion++;
-            mTvNowQuestion.setText(String.format("%02d",mCurrentQuestion));
-            mTvCountCorrect.setText(String.format("%02d",mCorrectAnswer));
-            updateQuestionsAndAnswers();
+            mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
+            mTvCountCorrect.setText(String.format("%02d", mCorrectAnswer));
+
         } else {
             mWrongAnswer++;
             mCurrentQuestion++;
-            mTvNowQuestion.setText(String.format("%02d",mCurrentQuestion));
-            mTvCountWrong.setText(String.format("%02d",mWrongAnswer));
-            updateQuestionsAndAnswers();
+            mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
+            mTvCountWrong.setText(String.format("%02d", mWrongAnswer));
+        }
+        return mCurrentQuestion == mSizeArray;
+    }
+    public final void currentTotal() {
+        mTotalResult = mCorrectAnswer * 100 / mSizeArray;
+        if (mTotalResult > 85) {
+            ShowPositivePopup();
+        } if (mTotalResult < 85) {
+            ShowNeutralPopup();
+        }if (mTotalResult < 70) {
+            ShowNegativePopup();
         }
     }
-    public final void endGame() {
-            /*
-             * реализовать Диалоговое окно. Активити Результат заменить на справочник с сылуками на статьи в Википедии
-             */
-            Intent result = new Intent(TestActivity.this, ResultActivity.class);
-            startActivity(result);
-        }
-    //region таймер обратного счета
-    private void runTimer() {
-        final TextView timeView = findViewById(R.id.text_view_countdown);
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int minutes = (mSecondsTimerCountdown % 3600) / 60;
-                int secs = mSecondsTimerCountdown % 60;
-                String time = String.format(Locale.getDefault(),
-                        "%02d:%02d", minutes, secs);
-                timeView.setText(time);
-                mSecondsTimerCountdown--;
-                if (mSecondsTimerCountdown < 15) {
-                    timeView.setTextColor(Color.RED);
+    public void ShowNegativePopup () {
 
-                }
-                if (mSecondsTimerCountdown == 0) {
-                    finish();
-                    Intent result = new Intent(TestActivity.this, ResultActivity.class);
-                    result.putExtra("correct: ", mCorrectAnswer);
-                    result.putExtra("wrong: ", mWrongAnswer);
-                    startActivity(result);
-                }
-                handler.postDelayed(this, 1000);
+        gameEnd.setContentView(R.layout.custom_negative_popup);
+        resultTvPopupNegativeImg = gameEnd.findViewById(R.id.resultTvPopupNegativeImg);
+        btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupNegativeImg);
+        titleTvPopupNegativeImg = gameEnd.findViewById(R.id.titleTvPopupNegativeImg);
+        messageTvPopupNegativeImg = gameEnd.findViewById(R.id.messageTvPopupNegativeImg);
+        resultTvPopupNegativeImg.setText(mTotalResult+" %");
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
+                startActivity(restartMenu);
+                finish();
             }
         });
+        gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        gameEnd.show();
     }
-//endregion
+    public void ShowPositivePopup () {
+        gameEnd.setContentView(R.layout.custom_positive_popup);
+
+        btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupPositiveImg);
+        titleTvPopupPositiveImg = gameEnd.findViewById(R.id.titleTvPopupPositiveImg);
+        messageTvPopupPositiveImg = gameEnd.findViewById(R.id.messageTvPopupPositiveImg);
+        resultTvPopupPositiveImg = gameEnd.findViewById(R.id.resultTvPopupPositiveImg);
+        resultTvPopupPositiveImg.setText(mTotalResult+" %");
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
+                startActivity(restartMenu);
+                finish();
+            }
+        });
+        gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        gameEnd.show();
+    }
+
+    public void ShowNeutralPopup () {
+        gameEnd.setContentView(R.layout.custom_neutral_popup);
+        resultTvPopupNeutralImg = gameEnd.findViewById(R.id.resultTvPopupNeutralImg);
+        resultTvPopupNeutralImg.setText(mTotalResult+" %");
+        btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupNeutralImg);
+        titleTvPopupNeutralImg = gameEnd.findViewById(R.id.titleTvPopupNeutralImg);
+        messageTvPopupNeutralImg = gameEnd.findViewById(R.id.messageTvPopupNeutralImg);
+
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
+                startActivity(restartMenu);
+                finish();
+            }
+        });
+        gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        gameEnd.show();
+    }
 }

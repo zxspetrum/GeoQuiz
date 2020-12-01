@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.collection.ArraySet;
-import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
@@ -48,6 +45,9 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         return mAnswers.size();
     }
 
+
+
+
     // сохраняет и перерабатывает просмотры по мере их прокрутки за пределы экрана
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
@@ -59,7 +59,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
         }
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) mClickListener.onItemClick(view, String.valueOf(getAdapterPosition()));
         }
     }
     // метод получения данных при клике
@@ -71,15 +71,13 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
-    public void updateAdapterData() {
-        //mAnswers.clear();
-       // mAnswers.addAll(mAnswers);
-
+    public void updateAdapterData(List<String> newAnswers) {
+        mAnswers = newAnswers;
         notifyDataSetChanged();
 
     }
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
-        List<String> onItemClick(View view, int position);
+        List<String> onItemClick(View view, String position);
     }
 }

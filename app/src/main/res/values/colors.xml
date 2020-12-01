@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
     <color name="colorPrimary">#FD0404</color>
     <color name="colorPrimaryDark">#C60202</color>
     <color name="colorAccent">#D30202</color>
-
-    <!--My  colors-->
     <color name="colorBackground">#FFFFFF</color>
 
-    <color name="black">#000000</color>
+    <!--My  colors-->
+      <color name="black">#000000</color>
     <color name="red">#FF0000</color>
-    <color name="yellow">#d0d001</color>
     <color name="blue">#1976D2</color>
     <color name="green">#59FF00</color>
-    <color name="bg_splash">#FFFFFF</color>
-    <color name="page_bg">#F7F5F6</color>
-    <color name="page_bg_dim">#FAFAFA</color>
 
-
-    <!-- цет строки RecycleView при на жатии-->
+    <!-- цветвая схема RecycleView при на жатии-->
     <color name="backgroundItemPrimary">#FFFFFF</color>
     <color name="backgroundItemClick">#CCCCCC</color>
 
+    <!--  цветвая схема кастомного диалогового окна endGame-->
+
+    <color name="colorRed">#FF3943</color>
+    <color name="colorRedDark">#801b20</color>
+    <color name="colorRedLight">#ff4081</color>
+    <color name="colorGreenLight">#abffc0</color>
+    <color name="colorGreenDark">#247b37</color>
+    <color name="colorGreen">#3eb959</color>
+    <color name="colorWhite">#FFFFFFFF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="yellowDark">#FFC107</color>
 
 </resources>

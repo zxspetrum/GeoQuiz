@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://sc  hemas.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
@@ -25,15 +26,15 @@
 
     <ImageView
         android:id="@+id/iv_menu"
-        android:layout_width="219dp"
-        android:layout_height="224dp"
+        android:layout_width="323dp"
+        android:layout_height="343dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:background="#FFFFFF"
+        android:background="@color/colorBackground"
 
         android:contentDescription="@string/description"
-        android:src="@drawable/menu"
+        android:src="@drawable/ic_book_menu"
         app:layout_constraintBottom_toTopOf="@+id/but_menu_test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

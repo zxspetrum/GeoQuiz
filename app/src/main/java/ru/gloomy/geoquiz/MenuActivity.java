@@ -25,7 +25,7 @@ public class MenuActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      //  setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         final Button but_menu_test, but_menu_result;
@@ -76,7 +76,6 @@ public class MenuActivity extends Activity {
     public void onBackPressed() {
 
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-
             super.onBackPressed();
             return;
         } else {
@@ -86,8 +85,8 @@ public class MenuActivity extends Activity {
     }
     public void customToast() {
         MotionToast.Companion.createColorToast(MenuActivity.this, "Внимание,", "Для выхода нажмите еще раз ",
-                MotionToast.TOAST_ERROR,
-                MotionToast.GRAVITY_CENTER,
+                MotionToast.TOAST_WARNING,
+                MotionToast.GRAVITY_BOTTOM,
                 MotionToast.SHORT_DURATION,
                 ResourcesCompat.getFont(this, R.font.ubuntu_light));
 

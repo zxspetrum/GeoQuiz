@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 //endregion
 
@@ -26,7 +27,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
     private QuestionList mQuestionList;
     private AdapterRecyclerView mAdapter;
-    private int mCurrentQuestion = 0;
+private int mCurrentQuestion = 0;
     private int mCorrectAnswer;
     private int mWrongAnswer;
     private int mSizeArray;
@@ -43,6 +44,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private TextView titleTvPopupNegativeImg, messageTvPopupNegativeImg, resultTvPopupNegativeImg;
     private  TextView titleTvPopupPositiveImg, messageTvPopupPositiveImg, resultTvPopupPositiveImg;
     private   TextView titleTvPopupNeutralImg, messageTvPopupNeutralImg, resultTvPopupNeutralImg;
+    private int mPositionItemAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,50 +95,40 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     }
 
     public void onItemClick(View view, int mPositionItemAnswer) {
+
         mClickAnswer = mPositionItemAnswer;
-        /*Toast.makeText(this, "Номер вопроса: " + mCurrentQuestion + " Ваш ответ: " + mAdapter.getItem(mPositionItemAnswer) + ", номер массива: " + mPositionItemAnswer + ", длина массива: " + mSizeArray + ". Правильный ответ: " + mIndexTrueAnswer,
-                Toast.LENGTH_SHORT).show();
-
-         */
-        countTruAndWrongAndAnswers();
-        updateQuestionsAndAnswers();
+        if (countTruAndWrongAndAnswers()) {
+            currentTotal();
+        } else {
+            updateQuestionsAndAnswers();
+        }
     }
-
     public void updateQuestionsAndAnswers() {
-        try {
             QuizQuestion quizQuestion = mQuestionList.getQuizQuestions().get(mCurrentQuestion);
-            //  Collections.shuffle(quizQuestion.getAnswers());
-            // Collections.shuffle(mQuestionList.getQuizQuestions());
             mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
             mAdapter.updateAdapterData(quizQuestion.getAnswers());
             mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
-
-        } catch (IndexOutOfBoundsException e) {
-        } finally {
-            if (mCurrentQuestion >= mSizeArray) {
-                currentTotal();
-            }
-        }
     }
-
     @SuppressLint("DefaultLocale")
-    public void countTruAndWrongAndAnswers() {
+    public boolean  countTruAndWrongAndAnswers() {
+
         if (mClickAnswer == mIndexTrueAnswer) {
+
             mCorrectAnswer++;
             mCurrentQuestion++;
             mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
             mTvCountCorrect.setText(String.format("%02d", mCorrectAnswer));
+
         } else {
             mWrongAnswer++;
             mCurrentQuestion++;
             mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
             mTvCountWrong.setText(String.format("%02d", mWrongAnswer));
         }
-        updateQuestionsAndAnswers();
+       return mCurrentQuestion == mSizeArray;
     }
-
     public final void currentTotal() {
-        mTotalResult = (mCorrectAnswer * 100) / mSizeArray;  // добавить исключение деление на ноль
+        mTotalResult = (mCorrectAnswer * 100) / mSizeArray;
         if (mTotalResult > 85) {
             ShowPositivePopup();
         } if (mTotalResult < 85) {
@@ -145,7 +137,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 ShowNegativePopup();
             }
         }
-
         public void ShowNegativePopup () {
 
             gameEnd.setContentView(R.layout.custom_negative_popup);
@@ -159,14 +150,12 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 public void onClick(View v) {
                     Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
                     startActivity(restartMenu);
+                    finish();
                 }
             });
-
-            gameEnd.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
             gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             gameEnd.show();
         }
-
         public void ShowPositivePopup () {
             gameEnd.setContentView(R.layout.custom_positive_popup);
 
@@ -180,6 +169,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 public void onClick(View v) {
                     Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
                     startActivity(restartMenu);
+                    finish();
                 }
             });
             gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -199,6 +189,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 public void onClick(View v) {
                     Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
                     startActivity(restartMenu);
+                    finish();
                 }
             });
             gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

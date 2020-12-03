@@ -1,20 +1,23 @@
 package ru.gloomy.geoquiz;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Collections;
 import java.util.List;
 
-public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerView.ViewHolder> {
 
     private List<String> mAnswers;
-    private final LayoutInflater mInflater;
+    private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+
 
     // передача данных в конструктор
     AdapterRecyclerView(Context context, List<String> data) {
@@ -24,7 +27,7 @@ public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecycler
     // данный код увеличивает контейнер RecyclerView в случае необходимости
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
@@ -39,7 +42,6 @@ public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecycler
     public int getItemCount() {
         return mAnswers.size();
     }
-
     // сохраняет и перерабатывает просмотры по мере их прокрутки за пределы экрана
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
@@ -58,17 +60,17 @@ public   class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecycler
     String getItem(int id) {
         return mAnswers.get(id);
     }
-
     // обработчик кликов
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
- public void updateAdapterData(List<String> newAnswers) {
-     mAnswers = newAnswers;
-     notifyDataSetChanged();
-   }
+    public void updateAdapterData(List<String> newAnswers) {
+        mAnswers = newAnswers;
+        notifyDataSetChanged();
+        Collections.shuffle(mAnswers);
+    }
     // activity будет реализовывать этот метод для ответа на события щелчка
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        List<String> onItemClick(View view, int position);
     }
 }

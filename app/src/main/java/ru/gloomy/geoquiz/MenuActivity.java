@@ -77,15 +77,15 @@ public class MenuActivity extends Activity {
 
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
-            return;
+            onDestroy();
         } else {
             customToast();
         }
         backPressedTime = System.currentTimeMillis();
     }
     public void customToast() {
-        MotionToast.Companion.createColorToast(MenuActivity.this, "Внимание,", "Для выхода нажмите еще раз ",
-                MotionToast.TOAST_WARNING,
+        MotionToast.Companion.darkToast(MenuActivity.this, "Внимание,", "Для выхода нажмите еще раз ",
+                MotionToast.TOAST_ERROR,
                 MotionToast.GRAVITY_BOTTOM,
                 MotionToast.SHORT_DURATION,
                 ResourcesCompat.getFont(this, R.font.ubuntu_light));

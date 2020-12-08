@@ -1,19 +1,30 @@
 <resources>
 
+    <!-- TODO: screen activity -->
+    <string name="description">Проверь свои знания !</string>
+    <string name="Intro">by gloomy 2020</string>
+
+
     <!-- TODO: activity menu -->
     <string name="app_name">Geo Quiz</string>
-    <string name="description">Проверь свои знания !</string>
     <string name="image_icon">image_icon_menu</string>
     <string name="but_menu_test">Пройти тест</string>
-    <string name="but_menu_result">Результат</string>
-    <string name="work">Страница с результатами теста в разработке. Приносим свои извинения</string>
+    <string name="but_menu_result">Справочник</string>
 
-    <!-- TODO: activity result -->
-        <string name="resultCorrect">Правильных: </string>
-    <string name="resultWrong">\nНеправильных: </string>
-    <string name="Intro">by gloomy 2020</string>
-    <string name="ivText">Image</string>
 
+    <!-- TODO: activity learn -->
+    <string-array name="title_learn">
+        <item>Глава 1. Путешествие</item>
+        <item>Глава 2. Страны и города </item>
+        <item>Глава 3. Горы и возвышенности </item>
+        <item>Глава 4. Моря и Океаны</item>
+        <item>Глава 5. Животный мир</item>
+        <item>Глава 6. Население</item>
+        <item>Возврат в главное меню</item>
+    </string-array>
+
+    <string name="frag1_text">Тест страницы Fragment 1</string>
+    <string name="frag2_text">Тест страницы Fragment 2</string>
 
     <!-- TODO:  activity test -->
     <string name="timer">00:00</string>
@@ -27,7 +38,5 @@
     <string name="positive_popup_title_default">Отлично!!!</string>
     <string name="negative_popup_title_default">Тест не сдан</string>
     <string name="neutral_popup_title_default">Есть над чем поработать</string>
-
-
 
 </resources>

@@ -3,7 +3,6 @@ package ru.gloomy.geoquiz;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
-
-import java.util.Timer;
 
 import www.sanju.motiontoast.MotionToast;
 
@@ -51,7 +47,7 @@ public class MenuActivity extends Activity {
 
                     case R.id.but_menu_result:
                         but_menu_result.startAnimation(animScale);
-                        Intent result = new Intent(MenuActivity.this, ResultActivity.class);
+                        Intent result = new Intent(MenuActivity.this, LearnActivity.class);
                         startActivity(result);
                         break;
 
@@ -76,8 +72,9 @@ public class MenuActivity extends Activity {
     public void onBackPressed() {
 
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
+
             super.onBackPressed();
-            onDestroy();
+
         } else {
             customToast();
         }

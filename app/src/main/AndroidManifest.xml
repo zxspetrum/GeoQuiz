@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ResultActivity" />
+        <activity android:name=".LearnActivity" />
         <activity android:name=".TestActivity" />
         <activity android:name=".MenuActivity">
             <intent-filter>

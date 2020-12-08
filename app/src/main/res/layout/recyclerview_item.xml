@@ -4,17 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@drawable/custom_ripple"
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tvAnswers"
-        android:background="@drawable/background_item"
+        android:id="@+id/tvRecyclerAdapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="5dp"
         android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
         android:textSize="20sp" />
-
-
 
 </LinearLayout>

@@ -8,22 +8,28 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 //endregion
+
 
 public class TestActivity extends AppCompatActivity implements AdapterRecyclerView.ItemClickListener {
 
@@ -35,7 +41,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private int mSizeArray;
     private String mIndexTrueAnswer;
     private int mTotalResult;
-    private int mSecondsTimerCountdown = 300;
     private TextView mTvNowQuestion;
     private TextView mTvCountCorrect;
     private TextView mTvCountWrong;
@@ -46,8 +51,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private  TextView titleTvPopupPositiveImg, messageTvPopupPositiveImg, resultTvPopupPositiveImg;
     private   TextView titleTvPopupNeutralImg, messageTvPopupNeutralImg, resultTvPopupNeutralImg;
     private String SelectPosition;
-
-
+    private Random rnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         mTvNowQuestion = findViewById(R.id.tvNowQuestion);
         gameEnd = new Dialog(this);
         mQuestionList = new QuestionList();
+
         Gson gson = new Gson();
         InputStream fileInputStream = getResources().openRawResource(R.raw.question_qeoquiz);
         String file = readTextFile(fileInputStream);
@@ -70,13 +75,19 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         rvAnswers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         rvAnswers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.row_divider)));
 
+       /*
+        rnd = new Random();
+        rnd.nextInt(mSizeArray);
+       */
+
         mAdapter = new AdapterRecyclerView(this, mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
+        rvAnswers.setAdapter(mAdapter);
         mSizeArray = mQuestionList.getQuizQuestions().size();
         tvQuestionScore.setText(String.format("%02d", mSizeArray));
         mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
-        rvAnswers.setAdapter(mAdapter);
         mAdapter.setClickListener(this);
         mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
+        runTimer();
     }
     //ввод чтение GOON
     public String readTextFile(InputStream inputStream) {
@@ -96,11 +107,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     @Override
    public List<String> onItemClick(View view, int position) {
        SelectPosition = toString(mAdapter.getItem(position));
-       Toast toast =  Toast.makeText(this,"Выбран ответ: "+  SelectPosition + " Правильный ответ; "+ mIndexTrueAnswer,Toast.LENGTH_LONG);
-       toast.setGravity(Gravity.TOP, 0,160);
-       toast.show();
-
        if (countTruAndWrongAndAnswers()) {
+           onStopTimer();
            currentTotal();
        } else {
            updateQuestionsAndAnswers();
@@ -136,10 +144,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     public final void currentTotal() {
         mTotalResult = mCorrectAnswer * 100 / mSizeArray;
         if (mTotalResult > 85) {
+            onStopTimer();
             ShowPositivePopup();
         } if (mTotalResult < 85) {
+            onStopTimer();
             ShowNeutralPopup();
         }if (mTotalResult < 70) {
+            onStopTimer();
             ShowNegativePopup();
         }
     }
@@ -155,16 +166,17 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             @Override
             public void onClick(View v) {
                 Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
-                startActivity(restartMenu);
+                gameEnd.cancel();
                 finish();
+                startActivity(restartMenu);
             }
         });
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
     public void ShowPositivePopup () {
-        gameEnd.setContentView(R.layout.custom_positive_popup);
 
+        gameEnd.setContentView(R.layout.custom_positive_popup);
         btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupPositiveImg);
         titleTvPopupPositiveImg = gameEnd.findViewById(R.id.titleTvPopupPositiveImg);
         messageTvPopupPositiveImg = gameEnd.findViewById(R.id.messageTvPopupPositiveImg);
@@ -174,14 +186,15 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             @Override
             public void onClick(View v) {
                 Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
-                startActivity(restartMenu);
                 finish();
+                startActivity(restartMenu);
             }
         });
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
     public void ShowNeutralPopup () {
+
         gameEnd.setContentView(R.layout.custom_neutral_popup);
         resultTvPopupNeutralImg = gameEnd.findViewById(R.id.resultTvPopupNeutralImg);
         resultTvPopupNeutralImg.setText(mTotalResult+" %");
@@ -200,4 +213,53 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
      gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
+    //таймер обратного счета
+    int  mSecondsTimerCountdown = 30;
+    private boolean running;
+    private void runTimer() {
+        final TextView timeView = findViewById(R.id.text_view_countdown);
+        final Handler handler = new Handler();
+        final Animation flashCombo = AnimationUtils.loadAnimation(
+                this, R.anim.flash_taimer);
+        final Animation watchRotate = AnimationUtils.loadAnimation(
+                this, R.anim.flash_taimer);
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int minutes = (mSecondsTimerCountdown % 3600) / 60;
+                int secs = mSecondsTimerCountdown % 60;
+                String time = String.format(Locale.getDefault(),
+                        "%02d:%02d", minutes, secs);
+                timeView .setText(time);
+
+                running = true;
+                if (running) {
+                    mSecondsTimerCountdown--;
+                }
+               /* if (mSecondsTimerCountdown ==90) {
+                    ivWatch.startAnimation(watchRotate);
+                }
+                if (mSecondsTimerCountdown ==60) {
+                    ivWatch.startAnimation(watchRotate);
+                }
+              */
+                if (mSecondsTimerCountdown < 20) {
+                    timeView.setTextColor(Color.RED);
+                    timeView.startAnimation(flashCombo);
+                }
+                if (mSecondsTimerCountdown == 0) {
+                    onStopTimer();
+                     currentTotal();
+                }
+               handler.postDelayed(this, 1000);
+            }
+        });
+    }
+    protected void onStopTimer(){
+        super.onStop();
+        running = false;
+
+    }
+
 }

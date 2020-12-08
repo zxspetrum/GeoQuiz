@@ -27,7 +27,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
     // данный код увеличивает контейнер RecyclerView в случае необходимости
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
@@ -48,7 +48,7 @@ public  class AdapterRecyclerView extends RecyclerView.Adapter <AdapterRecyclerV
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnswers);
+            myTextView = itemView.findViewById(R.id.tvRecyclerAdapter);
             itemView.setOnClickListener(this);
         }
         @Override

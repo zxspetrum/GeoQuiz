@@ -86,6 +86,5 @@ public class MenuActivity extends Activity {
                 MotionToast.GRAVITY_BOTTOM,
                 MotionToast.SHORT_DURATION,
                 ResourcesCompat.getFont(this, R.font.ubuntu_light));
-
     }
 }

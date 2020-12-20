@@ -13,18 +13,8 @@
 
 
     <!-- TODO: activity learn -->
-    <string-array name="title_learn">
-        <item>Глава 1. Путешествие</item>
-        <item>Глава 2. Страны и города </item>
-        <item>Глава 3. Горы и возвышенности </item>
-        <item>Глава 4. Моря и Океаны</item>
-        <item>Глава 5. Животный мир</item>
-        <item>Глава 6. Население</item>
-        <item>Возврат в главное меню</item>
-    </string-array>
 
-    <string name="frag1_text">Тест страницы Fragment 1</string>
-    <string name="frag2_text">Тест страницы Fragment 2</string>
+
 
     <!-- TODO:  activity test -->
     <string name="timer">00:00</string>
@@ -38,5 +28,7 @@
     <string name="positive_popup_title_default">Отлично!!!</string>
     <string name="negative_popup_title_default">Тест не сдан</string>
     <string name="neutral_popup_title_default">Есть над чем поработать</string>
+    <string name="todo">TODO</string>
+    <string name="title">Содержание</string>
 
 </resources>

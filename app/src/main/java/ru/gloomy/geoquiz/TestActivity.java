@@ -1,10 +1,8 @@
 package ru.gloomy.geoquiz;
 
 //region import class
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,12 +19,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 //endregion
 
 
@@ -128,6 +123,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     public boolean  countTruAndWrongAndAnswers() {
 
             if (SelectPosition.equals(mIndexTrueAnswer) ) {
+
             mCorrectAnswer++;
             mCurrentQuestion++;
             mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
@@ -162,13 +158,14 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         titleTvPopupNegativeImg = gameEnd.findViewById(R.id.titleTvPopupNegativeImg);
         messageTvPopupNegativeImg = gameEnd.findViewById(R.id.messageTvPopupNegativeImg);
         resultTvPopupNegativeImg.setText(mTotalResult+" %");
+        gameEnd.setCanceledOnTouchOutside(false);
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
+
                 gameEnd.cancel();
                 finish();
-                startActivity(restartMenu);
+
             }
         });
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -182,12 +179,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         messageTvPopupPositiveImg = gameEnd.findViewById(R.id.messageTvPopupPositiveImg);
         resultTvPopupPositiveImg = gameEnd.findViewById(R.id.resultTvPopupPositiveImg);
         resultTvPopupPositiveImg.setText(mTotalResult+" %");
+        gameEnd.setCanceledOnTouchOutside(false);
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
+
                 finish();
-                startActivity(restartMenu);
+
             }
         });
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -201,13 +199,11 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupNeutralImg);
         titleTvPopupNeutralImg = gameEnd.findViewById(R.id.titleTvPopupNeutralImg);
         messageTvPopupNeutralImg = gameEnd.findViewById(R.id.messageTvPopupNeutralImg);
-
+        gameEnd.setCanceledOnTouchOutside(false);
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restartMenu = new Intent(TestActivity.this, MenuActivity.class);
-                startActivity(restartMenu);
-                finish();
+                            finish();
             }
         });
      gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -234,7 +230,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 timeView .setText(time);
 
                 running = true;
-                if (running) {
+               if (running) {
                     mSecondsTimerCountdown--;
                 }
                /* if (mSecondsTimerCountdown ==90) {
@@ -249,16 +245,20 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                     timeView.startAnimation(flashCombo);
                 }
                 if (mSecondsTimerCountdown == 0) {
-                    onStopTimer();
-                     currentTotal();
+                    running = false;
+                    onStop();
+                    currentTotal();
+                    handler.postDelayed(this, 1000);
+
                 }
                handler.postDelayed(this, 1000);
             }
         });
     }
     protected void onStopTimer(){
-        super.onStop();
         running = false;
+        onStop();
+
 
     }
 

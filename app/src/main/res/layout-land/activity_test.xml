@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorBackground"
+    tools:context=".TestActivity">
+
+    <TextView
+        android:id="@+id/text_view_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:freezesText="true"
+        android:text="@string/count"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvNowQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_score"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="00" />
+
+    <TextView
+        android:id="@+id/tvQuestionScoreSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvNowQuestion"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="125dp"
+        android:text="@string/slash"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvQuestionScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvNowQuestion"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="140dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="00" />
+
+
+    <TextView
+        android:id="@+id/text_view_question_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_score"
+        android:layout_marginStart="20dp"
+        android:freezesText="true"
+        android:text="@string/counter"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tvCountCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_question_count"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="-3dp"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        tools:text="00" />
+
+    <TextView
+        android:id="@+id/tvAnswerScoreSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvCountCorrect"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="125dp"
+        android:text="@string/slash"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvCountWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_view_question_count"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="140dp"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        tools:text="00" />
+
+    <ImageView
+        android:id="@+id/ivWatch"
+        android:layout_width="57dp"
+        android:layout_height="42dp"
+        android:layout_below="@id/text_view_question_count"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="200dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_baseline_timer_24" />
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_question_count"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="200dp"
+        android:layout_toEndOf="@+id/ivWatch"
+        android:fontFamily="@font/lcdnova"
+        android:freezesText="false"
+        android:text="@string/timer"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="360dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:freezesText="true"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:text="@string/question" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAnswers"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="380dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        android:textColor="@color/black">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</RelativeLayout>

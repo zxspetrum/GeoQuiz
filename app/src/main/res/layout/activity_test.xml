@@ -136,14 +136,14 @@
 
     <TextView
         android:id="@+id/tvQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="77dp"
+        android:layout_width="356dp"
+        android:layout_height="94dp"
         android:layout_above="@+id/rvAnswers"
         android:layout_below="@id/text_view_question_count"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="84dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="21dp"
         android:freezesText="true"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -152,8 +152,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswers"
-        android:layout_width="393dp"
-        android:layout_height="341dp"
+        android:layout_width="392dp"
+        android:layout_height="310dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

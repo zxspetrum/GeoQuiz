@@ -10,14 +10,10 @@
         android:roundIcon="@mipmap/ic_book_round_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LearnActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TestActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MenuActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".DetailActivity"/>
+        <activity android:name=".LearnActivity"/>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

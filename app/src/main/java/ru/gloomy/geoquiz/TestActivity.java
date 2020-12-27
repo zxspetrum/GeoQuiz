@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,6 +20,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +33,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
 
     private QuestionList mQuestionList;
     private AdapterRecyclerView mAdapter;
-    private int mCurrentQuestion = 0;
+    private RecyclerView rvAnswers;
+    private int mCurrentQuestion;
     private int mCorrectAnswer;
     private int mWrongAnswer;
     private int mSizeArray;
@@ -46,6 +50,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private  TextView titleTvPopupPositiveImg, messageTvPopupPositiveImg, resultTvPopupPositiveImg;
     private   TextView titleTvPopupNeutralImg, messageTvPopupNeutralImg, resultTvPopupNeutralImg;
     private String SelectPosition;
+    private static final String RECYCLERVIEW = "recyclerView";
     private Random rnd;
 
     @Override
@@ -83,6 +88,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         mAdapter.setClickListener(this);
         mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
         runTimer();
+        if (savedInstanceState != null) {
+            mSecondsTimerCountdown  = savedInstanceState.getInt("seconds");
+            running = savedInstanceState.getBoolean("running");
+           // mCurrentQuestion = savedInstanceState.getInt("index");
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLERVIEW);
+            rvAnswers.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
     }
     //ввод чтение GOON
     public String readTextFile(InputStream inputStream) {
@@ -230,10 +242,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 timeView .setText(time);
 
                 running = true;
-               if (running) {
-                    mSecondsTimerCountdown--;
-                }
-               /* if (mSecondsTimerCountdown ==90) {
+                mSecondsTimerCountdown--;
+                /* if (mSecondsTimerCountdown ==90) {
                     ivWatch.startAnimation(watchRotate);
                 }
                 if (mSecondsTimerCountdown ==60) {
@@ -258,8 +268,13 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     protected void onStopTimer(){
         running = false;
         onStop();
-
-
     }
 
+    public void onSaveInstanceState (@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("seconds", mSecondsTimerCountdown);
+        savedInstanceState.putBoolean("running", running);
+       // savedInstanceState.putInt("index", mCurrentQuestion);
+        savedInstanceState.putParcelable(RECYCLERVIEW, rvAnswers.getLayoutManager().onSaveInstanceState());
+    }
 }

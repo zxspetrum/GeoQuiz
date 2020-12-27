@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://sc  hemas.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:padding="25dp"
+    tools:context=".MenuActivity">
+
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/app_name"
+        android:textColor="@color/red"
+
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="313dp"
+        android:layout_height="324dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorBackground"
+
+        android:contentDescription="@string/description"
+        android:padding="20dp"
+        android:src="@drawable/ic_book_menu"
+        app:layout_constraintBottom_toTopOf="@+id/but_menu_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAppName"
+        app:layout_constraintVertical_bias="0.23" />
+
+    <Button
+        android:id="@+id/but_menu_test"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/but_menu"
+        android:fontFamily="@font/ubuntu_light"
+
+        android:text="@string/but_menu_test"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/but_menu_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/but_menu_result"
+        android:layout_width="200dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/but_menu"
+        android:fontFamily="@font/ubuntu_light"
+
+        android:text="@string/but_menu_result"
+        android:textAlignment="center"
+
+        android:textColor="#FF0000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvIntro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/ubuntu_light"
+        android:text="@string/Intro"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SmallSp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

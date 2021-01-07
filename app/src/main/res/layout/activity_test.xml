@@ -28,6 +28,7 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:layout_marginStart="100dp"
+        android:text="00"
         android:textColor="@color/black"
         android:textSize="16sp"
         tools:text="00" />
@@ -77,6 +78,7 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:layout_marginStart="100dp"
+        android:text="00"
         android:textColor="@color/green"
         android:textSize="16sp"
         tools:text="00" />
@@ -101,6 +103,7 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:layout_marginStart="140dp"
+        android:text="00"
         android:textColor="@color/red"
         android:textSize="16sp"
         tools:text="00" />

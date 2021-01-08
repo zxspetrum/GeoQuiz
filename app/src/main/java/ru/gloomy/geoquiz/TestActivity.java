@@ -98,17 +98,16 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             mCorrectAnswer = savedInstanceState.getInt(CORRECT_ANSWER);
             mWrongAnswer = savedInstanceState.getInt(WRONG_ANSWER);
             mSizeArray = savedInstanceState.getInt(SIZE_ARRAY);
+
             mTvNowQuestion.setText(String.format("%02d", mCurrentQuestion));
             mTvCountCorrect.setText(String.format("%02d", mCorrectAnswer));
             mTvCountWrong.setText(String.format("%02d", mWrongAnswer));
 
             mAdapter = new AdapterRecyclerView(this, mQuestionList.getQuizQuestions().get(mCurrentQuestion).getAnswers());
             rvAnswers.setAdapter(mAdapter);
-            mSizeArray = mQuestionList.getQuizQuestions().size();
-            tvQuestionScore.setText(String.format("%02d", mSizeArray));
-            mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
             mAdapter.setClickListener(this);
             mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
+
         }
     }
     //ввод чтение GOON
@@ -130,7 +129,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
    public List<String> onItemClick(View view, int position) {
        SelectPosition = toString(mAdapter.getItem(position));
        if (countTruAndWrongAndAnswers()) {
-           onStop();
            currentTotal();
        } else {
            updateQuestionsAndAnswers();
@@ -209,6 +207,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
+    @SuppressLint("SetTextI18n")
     public void ShowNeutralPopup () {
 
         gameEnd.setContentView(R.layout.custom_neutral_popup);
@@ -224,11 +223,11 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                             finish();
             }
         });
-     gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
     //таймер обратного счета
-    int  mSecondsTimerCountdown = 30;
+    int  mSecondsTimerCountdown = mSizeArray*10;
     private boolean running = true;
     private void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
@@ -249,11 +248,11 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                if (running) {
                    mSecondsTimerCountdown--;
                }
-               if (mSecondsTimerCountdown < 20) {
+               if (mSecondsTimerCountdown < mSecondsTimerCountdown*0.33) {
                     timeView.setTextColor(Color.RED);
                     timeView.startAnimation(flashCombo);
                 }
-                if (mSecondsTimerCountdown == 00) {
+                if (mSecondsTimerCountdown == 0) {
                    TimerStop();
                    timeView.clearAnimation();
                    currentTotal();
@@ -277,7 +276,6 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     public void Random (){
         rnd = new Random();
         rnd.nextInt(mSizeArray);
-
     }
 }
 

@@ -30,5 +30,7 @@
     <string name="neutral_popup_title_default">Есть над чем поработать</string>
     <string name="todo">TODO</string>
     <string name="title">Содержание</string>
+    <string name="exit">Выход</string>
+
 
 </resources>

@@ -3,6 +3,8 @@ package ru.gloomy.geoquiz;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,8 @@ public class LectureDetailFragment extends Fragment {
         super.onStart();
         View view = getView();
         if (view != null) {
-           // TextView title =  view.findViewById(R.id.textTitle);
+
             Lecture lecture = Lecture.lectures[(int) lectureId];
-          //  title.setText(lecture.getTitle());
             TextView description = view.findViewById(R.id.textDescription);
             description.setText(lecture.getLecture());
         }

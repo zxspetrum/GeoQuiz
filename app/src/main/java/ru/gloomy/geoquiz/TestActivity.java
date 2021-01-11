@@ -227,7 +227,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.show();
     }
     //таймер обратного счета
-    int  mSecondsTimerCountdown = mSizeArray*10;
+    int  mSecondsTimerCountdown = 20;
     private boolean running = true;
     private void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
@@ -248,7 +248,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                if (running) {
                    mSecondsTimerCountdown--;
                }
-               if (mSecondsTimerCountdown < mSecondsTimerCountdown*0.33) {
+               if (mSecondsTimerCountdown < 10) {
                     timeView.setTextColor(Color.RED);
                     timeView.startAnimation(flashCombo);
                 }

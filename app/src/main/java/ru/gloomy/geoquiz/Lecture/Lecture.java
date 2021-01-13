@@ -1,4 +1,4 @@
-package ru.gloomy.geoquiz;
+package ru.gloomy.geoquiz.Lecture;
 
 
 public class Lecture {

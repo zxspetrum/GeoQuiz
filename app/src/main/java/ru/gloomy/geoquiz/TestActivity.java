@@ -159,7 +159,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         }
         return mCurrentQuestion == mSizeArray;
     }
-    public final void currentTotal() {
+    private final void currentTotal() {
         mTotalResult = mCorrectAnswer * 100 / mSizeArray;
         if (mTotalResult > 85) {
             TimerStop() ;
@@ -172,7 +172,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             ShowNegativePopup();
         }
     }
-    public void ShowNegativePopup () {
+    private void ShowNegativePopup () {
         gameEnd.setContentView(R.layout.custom_negative_popup);
         resultTvPopupNegativeImg = gameEnd.findViewById(R.id.resultTvPopupNegativeImg);
         btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupNegativeImg);
@@ -208,7 +208,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.show();
     }
     @SuppressLint("SetTextI18n")
-    public void ShowNeutralPopup () {
+    private void ShowNeutralPopup () {
 
         gameEnd.setContentView(R.layout.custom_neutral_popup);
         resultTvPopupNeutralImg = gameEnd.findViewById(R.id.resultTvPopupNeutralImg);
@@ -228,8 +228,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     }
     //таймер обратного счета
     int  mSecondsTimerCountdown = 20;
-    private boolean running = true;
-    private void runTimer() {
+    public boolean running = true;
+    public void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
         final Handler handler = new Handler();
         final Animation flashCombo = AnimationUtils.loadAnimation(
@@ -244,9 +244,11 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 int secs = mSecondsTimerCountdown % 60;
                 String time = String.format(Locale.getDefault(),
                         "%02d:%02d", minutes, secs);
-                timeView .setText(time);
+              timeView .setText(time);
+
                if (running) {
                    mSecondsTimerCountdown--;
+
                }
                if (mSecondsTimerCountdown < 10) {
                     timeView.setTextColor(Color.RED);
@@ -255,6 +257,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                 if (mSecondsTimerCountdown == 0) {
                    TimerStop();
                    timeView.clearAnimation();
+                    timeView .setText(time);
                    currentTotal();
                 }
                handler.postDelayed(this, 1000);

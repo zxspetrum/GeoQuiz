@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import ru.gloomy.geoquiz.Lecture.LectureDetailFragment;
-
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_LECTURE_ID = "id";

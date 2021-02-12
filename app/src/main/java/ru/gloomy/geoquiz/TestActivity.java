@@ -33,22 +33,14 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private QuestionList mQuestionList;
     private AdapterRecyclerView mAdapter;
     private RecyclerView rvAnswers;
-    private int mCurrentQuestion;
-    private int mCorrectAnswer;
-    private int mWrongAnswer;
-    private int mSizeArray;
-    private String mIndexTrueAnswer;
-    private int mTotalResult;
-    private TextView mTvNowQuestion;
-    private TextView mTvCountCorrect;
-    private TextView mTvCountWrong;
-    private TextView mTvQuestion;
+    private int mCurrentQuestion, mCorrectAnswer, mWrongAnswer, mSizeArray, mTotalResult;
+    private String mIndexTrueAnswer,SelectPosition;
+    private TextView mTvNowQuestion, mTvCountCorrect,  mTvCountWrong, mTvQuestion;
     private  Dialog gameEnd;
     private  Button btnAccept;
-    private TextView titleTvPopupNegativeImg, messageTvPopupNegativeImg, resultTvPopupNegativeImg;
-    private  TextView titleTvPopupPositiveImg, messageTvPopupPositiveImg, resultTvPopupPositiveImg;
-    private   TextView titleTvPopupNeutralImg, messageTvPopupNeutralImg, resultTvPopupNeutralImg;
-    private String SelectPosition;
+    private TextView titleTvPopupNegativeImg,titleTvPopupPositiveImg,titleTvPopupNeutralImg,
+                     messageTvPopupNeutralImg, messageTvPopupNegativeImg,  messageTvPopupPositiveImg,
+                     resultTvPopupNeutralImg,resultTvPopupPositiveImg,resultTvPopupNegativeImg;
     private static final String RECYCLERVIEW = "recyclerView";
     private static final String TIMER_COUNTDOWN = "seconds";
     private static final String RESULT = "indexResult";
@@ -107,13 +99,14 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             rvAnswers.setAdapter(mAdapter);
             mAdapter.setClickListener(this);
             mIndexTrueAnswer = mQuestionList.getQuizQuestions().get(mCurrentQuestion).getTrueAnswer();
-
         }
+
+
     }
     //ввод чтение GOON
     public String readTextFile(InputStream inputStream) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        byte buf[] = new byte[1024];
+        byte[] buf = new byte[1024];
         int len;
         try {
             while ((len = inputStream.read(buf)) != -1) {
@@ -139,6 +132,9 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         return item;
     }
    public void updateQuestionsAndAnswers() {
+       if ( mCurrentQuestion == mSizeArray) {
+           mCurrentQuestion=mSizeArray;
+       }
         QuizQuestion quizQuestion = mQuestionList.getQuizQuestions().get(mCurrentQuestion);
         mTvQuestion.setText(mQuestionList.getQuizQuestions().get(mCurrentQuestion).getQuestion());
         mAdapter.updateAdapterData(quizQuestion.getAnswers());
@@ -159,7 +155,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         }
         return mCurrentQuestion == mSizeArray;
     }
-    private final void currentTotal() {
+    private void currentTotal() {
         mTotalResult = mCorrectAnswer * 100 / mSizeArray;
         if (mTotalResult > 85) {
             TimerStop() ;
@@ -172,6 +168,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
             ShowNegativePopup();
         }
     }
+    @SuppressLint("SetTextI18n")
     private void ShowNegativePopup () {
         gameEnd.setContentView(R.layout.custom_negative_popup);
         resultTvPopupNegativeImg = gameEnd.findViewById(R.id.resultTvPopupNegativeImg);
@@ -190,7 +187,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         gameEnd.show();
     }
-    public void ShowPositivePopup () {
+    @SuppressLint("SetTextI18n")
+    private void ShowPositivePopup () {
         gameEnd.setContentView(R.layout.custom_positive_popup);
         btnAccept = gameEnd.findViewById(R.id.btnAcceptPopupPositiveImg);
         titleTvPopupPositiveImg = gameEnd.findViewById(R.id.titleTvPopupPositiveImg);
@@ -208,8 +206,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.show();
     }
     @SuppressLint("SetTextI18n")
-    private void ShowNeutralPopup () {
-
+    private   void ShowNeutralPopup () {
         gameEnd.setContentView(R.layout.custom_neutral_popup);
         resultTvPopupNeutralImg = gameEnd.findViewById(R.id.resultTvPopupNeutralImg);
         resultTvPopupNeutralImg.setText(mTotalResult+" %");
@@ -242,25 +239,23 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
           public void run() {
                 int minutes = (mSecondsTimerCountdown % 3600) / 60;
                 int secs = mSecondsTimerCountdown % 60;
-                String time = String.format(Locale.getDefault(),
-                        "%02d:%02d", minutes, secs);
-              timeView .setText(time);
-
+               String time = String.format(Locale.getDefault(),
+                       "%02d:%02d", minutes, secs);
                if (running) {
                    mSecondsTimerCountdown--;
-
                }
+
                if (mSecondsTimerCountdown < 10) {
                     timeView.setTextColor(Color.RED);
                     timeView.startAnimation(flashCombo);
                 }
                 if (mSecondsTimerCountdown == 0) {
-                   TimerStop();
                    timeView.clearAnimation();
-                    timeView .setText(time);
+                   TimerStop();
                    currentTotal();
                 }
                handler.postDelayed(this, 1000);
+               timeView .setText(time);
             }
         });
     }

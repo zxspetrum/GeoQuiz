@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import ru.gloomy.geoquiz.Lecture.LearnActivity;
 import www.sanju.motiontoast.MotionToast;
 
 public class MenuActivity extends Activity {

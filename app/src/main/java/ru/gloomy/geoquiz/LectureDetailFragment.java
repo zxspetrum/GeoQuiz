@@ -1,4 +1,4 @@
-package ru.gloomy.geoquiz.Lecture;
+package ru.gloomy.geoquiz;
 
 import android.os.Bundle;
 
@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import ru.gloomy.geoquiz.R;
 
 
 public class LectureDetailFragment extends Fragment {

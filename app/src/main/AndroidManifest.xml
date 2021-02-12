@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DetailActivity"/>
         <activity android:name=".LearnActivity"/>
-        <activity android:name=".TestActivity" />
+        <activity android:name=".TestActivity"/>
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

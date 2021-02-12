@@ -7,8 +7,6 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-//позаимсвован с https://ru.stackoverflow.com/questions/730344/
-
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private final Drawable mDivider;
@@ -25,14 +23,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             drawVerticalDividers(canvas, parent);
         }
     }
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (parent.getChildAdapterPosition(view) == 0) {
             return;
         }
-
         mOrientation = ((LinearLayoutManager) parent.getLayoutManager()).getOrientation();
         if (mOrientation == LinearLayoutManager.HORIZONTAL) {
             outRect.left = mDivider.getIntrinsicWidth();
@@ -40,7 +36,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             outRect.top = mDivider.getIntrinsicHeight();
         }
     }
-
     private void drawHorizontalDividers(Canvas canvas, RecyclerView parent) {
         int parentTop = parent.getPaddingTop();
         int parentBottom = parent.getHeight() - parent.getPaddingBottom();
@@ -54,7 +49,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.draw(canvas);
         }
     }
-
     private void drawVerticalDividers(Canvas canvas, RecyclerView parent) {
         int parentLeft = parent.getPaddingTop() * 3;
         int parentRight = parent.getWidth() - parent.getPaddingRight();

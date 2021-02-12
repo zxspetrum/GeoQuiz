@@ -1,11 +1,8 @@
-package ru.gloomy.geoquiz.Lecture;
+package ru.gloomy.geoquiz;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
-import ru.gloomy.geoquiz.DetailActivity;
-import ru.gloomy.geoquiz.R;
 
 
 public class LearnActivity extends AppCompatActivity implements LectureListFragment.Listener {

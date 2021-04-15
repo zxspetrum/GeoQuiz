@@ -34,6 +34,7 @@
     <string name="countQuestion">00</string>
     <string name="countCorrect">00</string>
     <string name="countWrong">00</string>
+    <string name="positiveResult">Отличный результат</string>
 
 
 </resources>

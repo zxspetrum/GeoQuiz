@@ -38,8 +38,8 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
     private TextView mTvNowQuestion, mTvCountCorrect,  mTvCountWrong, mTvQuestion;
     private  Dialog gameEnd;
     private  Button btnAccept;
-    private TextView titleTvPopupNegativeImg,titleTvPopupPositiveImg,titleTvPopupNeutralImg,
-                     messageTvPopupNeutralImg, messageTvPopupNegativeImg,  messageTvPopupPositiveImg,
+    private TextView titleTvPopupNegativeImg,titleTvPopupPositiveImg,titleTvPopupNeutralImg;
+    private TextView  messageTvPopupNeutralImg, messageTvPopupNegativeImg,  messageTvPopupPositiveImg,
                      resultTvPopupNeutralImg,resultTvPopupPositiveImg,resultTvPopupNegativeImg;
     private static final String RECYCLERVIEW = "recyclerView";
     private static final String TIMER_COUNTDOWN = "seconds";
@@ -224,7 +224,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
         gameEnd.show();
     }
     //таймер обратного счета
-    int  mSecondsTimerCountdown = 20;
+    int  mSecondsTimerCountdown = 30;
     public boolean running = true;
     public void runTimer() {
         final TextView timeView = findViewById(R.id.text_view_countdown);
@@ -239,8 +239,10 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
           public void run() {
                 int minutes = (mSecondsTimerCountdown % 3600) / 60;
                 int secs = mSecondsTimerCountdown % 60;
+
                String time = String.format(Locale.getDefault(),
                        "%02d:%02d", minutes, secs);
+               timeView .setText(time);
                if (running) {
                    mSecondsTimerCountdown--;
                }
@@ -255,7 +257,7 @@ public class TestActivity extends AppCompatActivity implements AdapterRecyclerVi
                    currentTotal();
                 }
                handler.postDelayed(this, 1000);
-               timeView .setText(time);
+
             }
         });
     }
